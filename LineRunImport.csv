@@ -1,0 +1,4 @@
+#Line Section Design,,,,,,,Line Properties,,,,Outside Environment,,,,,,Insulation Layers,(multiple layers should be separated by backslash {\}),
+#Section Name,Section Input Type [Length and Inclination/Coordinates],Inclination / (deg),Length / (m),number of steps,End Point - X / (m),End Point - Y / (m),Internal Diameter / (m),Pipe Roughness / (um),Pipe Thickness / (m),Pipe Conductivity / (W/m*k),Environment type [Sea/River/Air],Outside Temperature /(C),Current/Wind Velocity / (m/s),Burial Ratio / (%),Soil Thickness / (m),Soil Conductivity / (W/(m*K),Insulation Type [Coating/Concrete/Soil],Insulation Thickness / (m),Insulation Conductivity / (W/(m*K)
+Example Section 1,Length and Inclination,0,400,40,,,0.1,20,0.1,0.2,Air,25,5,25,0,1,Concrete\Coating,0.25\0.1,0.1\0.01
+Example Section 2,Coordinates,,,40,600,200,0.1,20,0.1,0.2,Air,25,5,25,0,1,Concrete\Coating,0.25\0.1,0.1\0.02

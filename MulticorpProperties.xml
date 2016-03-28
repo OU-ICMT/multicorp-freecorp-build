@@ -1,0 +1,357 @@
+<?xml version="1.0"?>
+<!--Multicorp Input File-->
+<?xml-stylesheet type="text/xsl" href="multicorpproperties.xsl"?>
+<!DOCTYPE MulticorpProperties[
+    <!ELEMENT MulticorpProperties ANY>
+    <!ELEMENT Model ANY>
+    <!ELEMENT Parameter ANY>
+    <!ELEMENT ParamGroup ANY>
+    <!ELEMENT UISetting ANY>
+    <!ATTLIST Model name ID #REQUIRED>
+    <!ATTLIST Parameter name ID #REQUIRED>
+    <!ATTLIST ParamGroup name ID #REQUIRED>
+    <!ATTLIST UISetting name ID #REQUIRED>]>
+<MulticorpProperties>
+    <ParamGroup name="Settings" version="5.2.100"
+                isTitleVisible="false"
+                displayName="General Input">
+        <ParamGroup name="Language Option"
+                    displayOrder="1" >
+            <Parameter name="Language"
+                       toolTips="Localization environment in which Multicorp should run. Impacts number format, date format, and GUI text"
+                    
+                       className="edu.ohiou.icmt.modeling.param.OptionParameter"
+                       displayOrder ="1"
+                       options="LANGUAGE_OPTIONS" />
+          <!--currentSelection="3"-->
+        </ParamGroup>
+        <ParamGroup name="Chemical Models"
+                    displayOrder="1" >
+            <Parameter name="Corrosion Types"
+                       toolTips="Avaliable Corrosion type models."
+                       defaultSelection="1"
+                       className="edu.ohiou.icmt.modeling.param.OptionParameter"
+                       displayOrder="1"
+                       options="CORROSION_TYPE_OPTIONS"
+                       enabled="false" />
+        </ParamGroup>
+        <ParamGroup name="Trace Panel"
+                    displayOrder="2"  >
+            <Parameter name="Trace Font"
+                       toolTips="Font for displaying the text in trace panel"
+                       displayName="Font"
+                       className="edu.ohiou.icmt.modeling.param.Parameter"
+                       displayOrder="1"
+                       currentValue="60"
+                       softLimit="40 200"
+                       hardLimit="40 200"
+                       unitType="NULLTYPE"
+                       units="ph_units"
+                       unitIndex="0" />
+            <Parameter name="Trace BG Color"
+                       toolTips="Background color of Trace Panel."
+                       displayName="Background"
+                       className="edu.ohiou.icmt.modeling.param.ColorParameter"
+                       displayOrder ="2"
+                       defaultValue="-1"
+                       isOutput="true" />
+            <Parameter name="Trace FG Color"
+                       toolTips="Foreground color of Trace Panel."
+                       displayName="Foreground"
+                       className="edu.ohiou.icmt.modeling.param.ColorParameter"
+                       displayOrder ="3"
+                       defaultValue="-16777216"
+                       isOutput="true" />
+        </ParamGroup>
+        <ParamGroup name="Parameter Panel"
+                    isTitleVisible="false"
+                    displayOrder="3"
+                    flowDirection="0">
+            <ParamGroup name="Adjust Width"
+                        displayOrder="1" >
+                <Parameter name="Label Width"
+                           toolTips="The width of the paramter name label, in pixels"
+                           className="edu.ohiou.icmt.modeling.param.Parameter"
+                           displayOrder="1"
+                           currentValue="120"
+                           softLimit="60 200"
+                           hardLimit="60 200"
+                           unitIndex="0"
+                           unitType="CONTROL_LENGTH"
+                           units="control_length_units" />
+                <Parameter name="Value Width"
+                            toolTips="The width of the paramter value text box, in pixels."
+                           className="edu.ohiou.icmt.modeling.param.Parameter"
+                           displayOrder="2"
+                           currentValue="55"
+                           softLimit="40 200"
+                           hardLimit="40 200"
+                           unitIndex="0"
+                           unitType="CONTROL_LENGTH"
+                           units="control_length_units" />
+                <Parameter name="Unit Width"
+                            toolTips="The width of the paramter unit combo box, in pixels."
+                           className="edu.ohiou.icmt.modeling.param.Parameter"
+                           displayOrder="3"
+                           currentValue="60"
+                           softLimit="40 200"
+                           hardLimit="40 200"
+                           unitIndex="0"
+                           unitType="CONTROL_LENGTH"
+                           units="control_length_units" />
+            </ParamGroup>
+            <ParamGroup name="Set Colors"
+                        isTitleVisible="false"
+                        displayOrder="2" >
+                <ParamGroup name="Input Parameter Style"
+                            displayOrder="1"
+                            flowDirection="1">
+                    <Parameter name="Input BG Color"
+                               toolTips="Background color of input parameters."
+                               displayName="Background"
+                               className="edu.ohiou.icmt.modeling.param.ColorParameter"
+                               displayOrder ="1"
+                               defaultValue="-1"
+                               isOutput="true" />
+                    <Parameter name="No Input BG Color"
+                               toolTips="Background color of input text box when value is not entered."
+                               displayName="No Input"
+                               className="edu.ohiou.icmt.modeling.param.ColorParameter"
+                               displayOrder ="2"
+                               defaultValue="-256"
+                               isOutput="true" />
+                    <Parameter name="Input FG Color"
+                               toolTips="The color of the text for input parameters"
+                               displayName="Foreground"
+                               className="edu.ohiou.icmt.modeling.param.ColorParameter"
+                               displayOrder ="3"
+                               defaultValue="-16777216"
+                               isOutput="true" />
+                </ParamGroup>
+                <ParamGroup name="Output Parameter Style"
+                            displayOrder="2"
+                            flowDirection="1">
+                    <Parameter name="Output BG Color"
+                                toolTips="Background color of output parameters."
+                               displayName="Background"
+                               className="edu.ohiou.icmt.modeling.param.ColorParameter"
+                               displayOrder ="1"
+                               defaultValue="-4144960"
+                               isOutput="true" />
+                    <Parameter name="Output FG Color"
+                                toolTips="The color of the text for output parameters."
+                               displayName="Foreground"
+                               className="edu.ohiou.icmt.modeling.param.ColorParameter"
+                               displayOrder ="2"
+                               defaultValue="-16777056"
+                               isOutput="true" />
+                </ParamGroup>
+            </ParamGroup>
+        </ParamGroup>
+        <ParamGroup name="Graph"
+                    displayOrder="4">
+            <Parameter name="Graph BG Color"
+                       toolTips="Background color of graph panel."
+                       displayName="Background"
+                       className="edu.ohiou.icmt.modeling.param.ColorParameter"
+                       displayOrder ="1"
+                       defaultValue=""
+                       isOutput="true" />
+            <ParamGroup name="Axis"
+                        displayOrder="1"
+                        flowDirection="0">
+                <Parameter name="Axis Color"
+                           toolTips="The color of the axis line for all axes."
+                           className="edu.ohiou.icmt.modeling.param.ColorParameter"
+                           displayOrder ="1"
+                           defaultValue=""
+                           isOutput="true" />
+                <Parameter name="Ticks On X"
+                           toolTips="Number of ticks on X axis."
+                           className="edu.ohiou.icmt.modeling.param.Parameter"
+                           displayOrder="2"
+                           defaultValue="6"
+                           softLimit="0 10"
+                           hardLimit="0 10"
+                           unitType="NULLTYPE"
+                           units="no_units" />
+                <Parameter name="Ticks On Y"
+                            toolTips="Number of ticks on Y axis."
+                           className="edu.ohiou.icmt.modeling.param.Parameter"
+                           displayOrder="3"
+                           defaultValue="4"
+                           softLimit="0 10"
+                           hardLimit="0 10"
+                           unitType="NULLTYPE"
+                           units="no_units" />
+                <Parameter name="Axis-X to Bottom"
+                           toolTips="The distance of X axis from the bottom of the graph panel, in pixels."
+                           className="edu.ohiou.icmt.modeling.param.Parameter"
+                           displayOrder="4"
+                           defaultValue="30"
+                           softLimit="0 200"
+                           hardLimit="0 200"
+                           unitType="NULLTYPE"
+                           units="no_units" />
+                <Parameter name="Axis-Y to Left"
+                           toolTips="The distance of Y axis from the border of the graph panel, in pixels."
+                           className="edu.ohiou.icmt.modeling.param.Parameter"
+                           displayOrder="5"
+                           defaultValue="30"
+                           softLimit="0 200"
+                           hardLimit="0 200"
+                           unitType="NULLTYPE"
+                           units="no_units" />
+                <Parameter name="Line Thickness"
+                           toolTips="The line thickness for graph data."
+                           className="edu.ohiou.icmt.modeling.param.Parameter"
+                           displayOrder="6"
+                           defaultValue="1.5"
+                           softLimit="1e-10 3"
+                           hardLimit="1e-10 10"
+                           unitType="NULLTYPE"
+                           units="no_units" />
+                <Parameter name="Zoom Scale"
+                           toolTips="Zoom factor by which the graph is enlarged or reduced on a single click, as increment/decrement ratio to the old value."
+                           className="edu.ohiou.icmt.modeling.param.Parameter"
+                           displayOrder="6"
+                           defaultValue="1.5"
+                           softLimit="1e-10 3"
+                           hardLimit="1e-10 10"
+                           unitType="NULLTYPE"
+                           units="no_units" />
+                <Parameter name="Shift Factor"
+                           toolTips="Slide value by which the graph is moved on a single click, in pixels."
+                           className="edu.ohiou.icmt.modeling.param.Parameter"
+                           displayOrder="7"
+                           defaultValue="0.2"
+                           softLimit="0 1"
+                           hardLimit="0 2"
+                           unitType="NULLTYPE"
+                           units="no_units" />
+                <Parameter name="Point Radius"
+                           toolTips="The radius of points shown on the graph, in pixels"
+                           className="edu.ohiou.icmt.modeling.param.Parameter"
+                           displayOrder="8"
+                           defaultValue="10"
+                           softLimit="1e-10 15"
+                           hardLimit="1e-10 20"
+                           unitType="NULLTYPE"
+                           units="no_units" />
+            </ParamGroup>
+            <ParamGroup name="Curve"
+                        displayOrder="1"
+                        flowDirection="1">
+                <Parameter name="Curve Color"
+                           className="edu.ohiou.icmt.modeling.param.ColorParameter"
+                           displayOrder ="1"
+                           defaultValue=""
+                           isOutput="true" />
+            </ParamGroup>
+        </ParamGroup>
+        <ParamGroup name="Simulation"
+					isTitleVisible="false"
+                    displayOrder="5">
+			<ParamGroup name="Point Model"
+						displayOrder="1">
+				<Parameter name="Data Retrive Interval"
+						   toolTips="The time, in milliseconds, of the interval between two consecutive retrievals of results from Corrsim."
+						   className="edu.ohiou.icmt.modeling.param.Parameter"
+						   displayOrder="1"
+						   currentValue="30"
+						   softLimit="10 200"
+						   hardLimit="10 200"
+						   unitIndex="0"
+						   unitType="INTERVAL_AS_MILLISECONDS"
+						   units="milliseconds_interval_units" />
+				<Parameter name="Curve Refresh Interval"
+						   toolTips="Interval by which corrosion rate graph is updated during the Corrsim run, as count of number of points received."
+						   className="edu.ohiou.icmt.modeling.param.Parameter"
+						   displayOrder="2"
+						   currentValue="10"
+						   softLimit="1 200"
+						   hardLimit="1 200"
+						   unitIndex="0"
+						   unitType="INTERVAL_AS_POINTS"
+						   units="points_interval_units" />
+				<Parameter name="Data Output Interval"
+						   toolTips="Interval by which simulation results during the Corrsim run, are sent to output file, as simulation loop count."
+						   className="edu.ohiou.icmt.modeling.param.Parameter"
+						   displayOrder="3"
+						   currentValue="10"
+						   softLimit="1 100"
+						   hardLimit="1 100"
+						   unitIndex="0"
+						   unitType="INTERVAL_AS_LOOPS"
+						   units="loops_interval_units" />
+				<Parameter name="Trace Unit"
+						   toolTips="The Fortran unit number for trace log file. File name will be fort.#, eg. fort.10. Users usually do not need to change it."
+						   className="edu.ohiou.icmt.modeling.param.Parameter"
+						   displayOrder="4"
+						   currentValue="10"
+						   softLimit="1 100"
+						   hardLimit="1 100"
+						   unitIndex="0"
+						   unitType="NULLTYPE"
+						   units="no_units" />
+				<Parameter name="Trace Level"
+						   toolTips="Level of trace information generated during Corrsim run. Higher number means more log output."
+						   className="edu.ohiou.icmt.modeling.param.Parameter"
+						   displayOrder="5"
+						   currentValue="0"
+						   softLimit="0 100"
+						   hardLimit="0 100"
+						   unitIndex="0"
+						   unitType="NULLTYPE"
+						   units="no_units" />
+			</ParamGroup>
+
+			<ParamGroup name="Parametric Run"
+						displayOrder="2">
+            <Parameter name="GUI Update"
+                       toolTips="Parametric run user interface update interval. Currently not used."
+                       currentSelection="1"
+                       className="edu.ohiou.icmt.modeling.param.OptionParameter"
+                       displayOrder ="1"
+                       options="GUI_UPDATE_OPTIONS_PARAMETRIC" />
+			</ParamGroup>
+			<ParamGroup name="Line Run"
+						displayOrder="3">
+            <Parameter name="GUI Update"
+                       toolTips="Line run user interface update interval. Currently not used."
+                       currentSelection="1"
+                       className="edu.ohiou.icmt.modeling.param.OptionParameter"
+                       displayOrder ="1"
+                       options="GUI_UPDATE_OPTIONS_LINE" />
+			</ParamGroup>
+          
+        </ParamGroup>
+        <ParamGroup name="Advanced"
+                      displayOrder="6" >
+          <Parameter name="Save Point Models"
+                           toolTips="Save Every Point Model in the Line Run"
+                           currentSelection="1"
+                           className="edu.ohiou.icmt.modeling.param.OptionParameter"
+                           displayOrder ="1"
+                           options="YES_NO_OPTIONS" />
+        </ParamGroup>
+    </ParamGroup>
+    <!--
+    <Parameter name="Pipe Conductivity"
+               className="edu.ohiou.icmt.modeling.param.Parameter"
+               displayOrder ="3"
+               defaultValue="60"
+               softLimit="0.001 250"
+               hardLimit="0.001 250"
+               unitType="CONDUCTIVITY"
+               units="conductivity_units" />
+    -->
+    <!--
+    <MCSettingGroup name="Parameter">
+        <MCSetting name="Label Field Width"
+                   default/>
+        <MCSetting name="Value Field Width" />
+        <MCSetting name="Unit Field Width" />
+    </MCSettingGroup>
+    -->
+</MulticorpProperties>

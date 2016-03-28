@@ -1,0 +1,52 @@
+#This file is defined to provide values to
+#control the simulation behavior.
+
+##This property is flag of creating the output file.
+#0->do not generate the output file; 1->generate the output file
+multicorp.genOutputFile
+1
+
+##This property defines the format of the output file.
+#0->single line format, 1-> multiple line format
+#Note: for single line format, the output is simplified, and contains only
+#[simulation time], [corrosion rate], [super saturation] and [time step].
+multicorp.outputMode
+0
+
+##0-> show no information, 1-> basic information,
+#2-> important information, 3-> critical information
+multicorp.traceLevel
+0
+
+##Species whoes data should be recored in the output file
+#Format:num of species, species name(s)
+multicorp.outputOptions 
+2,H+,Fe2+
+
+##Inital value for the flag of the localization
+#0-> not applied initially; 1-> applied initially
+multicorp.localization
+0
+
+##Concentration increasing limit
+multicorp.concIncreaseLimit
+0.2
+
+##Time step limit in minutes
+#0->no limit
+multicorp.dtLimit
+0
+
+##This property controlls the inteval of writing output file.
+#MUST be greater than 0
+multicorp.outputInterval
+20
+
+##Print out data after a certain loop.
+#e.g., if it is 4, which means data generated after loop 4 will be printed out.
+#if it is -1, no data will be printed out.
+#The output file has extension *.mcdata
+multicorp.loopToBeChecked
+-1
+
+

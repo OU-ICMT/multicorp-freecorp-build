@@ -1,0 +1,45 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+fc-composition
+</name>
+</assembly>
+<members>
+<member name="T:edu.ohiou.icmt.freecorp.composition.FreeCompositionModel">
+ <summary>
+ File: composition.vb
+ Author: Arif Ahmed
+ Organization: Institute for Corrosion and Multiphase Technology, Ohio University
+ Revision: 5.3.0.0
+ Date: 3/10/2016
+ 
+ Description:
+ This class is the (free version of) composition model.
+
+ </summary>
+ <remarks>
+ This file was originally written for Institute for Corrosion and Multiphase Technologies 
+ as part of the CC Joint Industrial Project by a team at ICMT under the direction 
+ of Dr. Srdjan Nesic 
+ 
+ </remarks>
+</member>
+<member name="T:edu.ohiou.icmt.My.Resources.Resources">
+<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+<member name="P:edu.ohiou.icmt.My.Resources.Resources.ResourceManager">
+<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member>
+<member name="P:edu.ohiou.icmt.My.Resources.Resources.Culture">
+<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member>
+</members>
+</doc>

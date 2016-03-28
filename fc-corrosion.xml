@@ -1,0 +1,41 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+fc-corrosion
+</name>
+</assembly>
+<members>
+<member name="M:edu.ohiou.icmt.freecorp.point.ElectroChemicalModel.getioref_Frumkin(System.Double,System.Double,System.Double,System.Double)">
+ This function is to obtain the reference current density for iron dissolution using bisection method
+</member>
+<member name="T:edu.ohiou.icmt.freecorp.point.GlobalData.equipmentType">
+ <summary>
+ Equipment types:Rotating cylinder, pipeline, magnetic stirring bar
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:edu.ohiou.icmt.freecorp.point.MassTransferConstants.getKs(System.Double)">
+ <summary>
+ This Function returns() mass transfer coefficient Of corrosion product scale
+ </summary>
+ <returns></returns>
+</member>
+<member name="T:edu.ohiou.icmt.My.Resources.Resources">
+<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+<member name="P:edu.ohiou.icmt.My.Resources.Resources.ResourceManager">
+<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member>
+<member name="P:edu.ohiou.icmt.My.Resources.Resources.Culture">
+<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member>
+</members>
+</doc>

@@ -1,0 +1,859 @@
+<?xml version="1.0" ?>
+<!--Multicorp Input File-->
+<?xml-stylesheet type="text/xsl" href="multicorp_default_input.xsl" ?>
+<!DOCTYPE MulticorpDefaultInput[
+  <!ELEMENT MulticorpDefaultInput ANY>
+  <!ELEMENT Model ANY>
+  <!ELEMENT Note ANY>
+  <!ELEMENT CorrosionCase ANY>
+  <!ELEMENT Composition ANY>
+  <!ELEMENT FlowModel ANY>
+  <!ELEMENT Parameter ANY>
+  <!ELEMENT VaryingParameter ANY>
+  <!ELEMENT ParamGroup ANY>
+  <!ELEMENT ParamGroupDef ANY>
+  <!ELEMENT ParamTable ANY>
+  <!ELEMENT ParamRow ANY>
+  <!ATTLIST Model name ID #REQUIRED>
+  <!ATTLIST Parameter name ID #REQUIRED>
+  <!ATTLIST VaryingParameter name ID #REQUIRED>
+  <!ATTLIST ParamGroup name ID #REQUIRED>
+  <!ATTLIST ParamGroupDef name ID #REQUIRED>
+  <!ATTLIST ParamTable name ID #REQUIRED>
+  <!ATTLIST ParamRow name ID #REQUIRED>
+  <!ATTLIST ParamRowDef name ID #REQUIRED>
+]>
+
+<!--default display units (the first in list of units in Unit.vb)
+  LENGTH=METER
+  TEMPERATURE=CELSIUS
+  PRESSURE=BAR
+  VELOCITY=METER_PER_SECOND
+  PERCENT=%
+  ROTATIONAL_VELOCITY=/min
+  time_units=MINUTE
+  GAS_CONCENTRATION_units=PERCENTAGE
+  gas_flow_rate_units=STANDARD_METER_3_PER_DAY
+  liquid_flow_rate_units=METER_3_PER_DAY
+  WATER_SPEC_CONCENTRATION=PPMW
+  viscosity_units=PAS
+  density_units=KG_PER_CUBIC_METER
+  TENSION=NEWTON_PER_METER
+  FREQUENCY=/min
+  freq_units=TIMES_PER_MINUTE
+  ANGLE=DEGREE
+  HEAT_CAPACITY=J_KG_K
+  roughness_units=
+  conductivity_units=W_M_K
+  condensation_rate_units=ML_MSQUARE_S
+
+base units
+            LENGTH.baseUnit=Unit.METER
+            CONTROL_LENGTH.baseUnit=Unit.PIXEL
+            TEMPERATURE.baseUnit=Unit.CELSIUS
+            PRESSURE.baseUnit=Unit.BAR
+            VELOCITY.baseUnit=Unit.METER_PER_SECOND
+            PERCENT.baseUnit=Unit.FRACTION
+            ROTATIONAL_VELOCITY.baseUnit=Unit.RevolutionsperMinute
+            TIME.baseUnit=Unit.HOUR
+            NULLTYPE.baseUnit=Unit.NULL
+            GAS_CONCENTRATION.baseUnit=Unit.BAR
+            CONCENTRATION.baseUnit=Unit.PPMW
+            VISCOSITY.baseUnit=Unit.PAS
+            GAS_FLOW_RATE.baseUnit=Unit.STANDARD_METER_3_PER_DAY
+            LIQUID_FLOW_RATE.baseUnit=Unit.METER_3_PER_DAY
+            DENSITY.baseUnit=Unit.KG_PER_CUBIC_METER
+            TENSION.baseUnit=Unit.NEWTON_PER_METER
+            FREQUENCY.baseUnit=Unit.TIMES_PER_MINUTE
+            ANGLE.baseUnit=Unit.DEGREE
+            HEAT_CAPACITY.baseUnit=Unit.J_KG_K
+            CONDUCTIVITY.baseUnit=Unit.W_M_K
+            CORROSION_RATE.baseUnit=Unit.MM_PER_YEAR
+            CONDENSATION_RATE.baseUnit=Unit.ML_MSQUARE_S
+
+            INTERVAL_AS_LOOPS.baseUnit=Unit.LOOPS
+            INTERVAL_AS_MILLISECONDS.baseUnit=Unit.MILLISECONDS
+            INTERVAL_AS_POINTS.baseUnit=Unit.POINTS
+
+            PPMVUNIT.baseUnit=Unit.PPMV
+
+            STRESS.baseUnit=Unit.PA
+
+  -->
+<MulticorpDefaultInput>
+  <Model name="CorrosionCase"
+         assembly="mc-corrosioncase, Version=5.3.0.0, Culture=neutral, PublicKeyToken=null"
+         className="edu.ohiou.icmt.multicorp.corrcase.CorrosionCase"
+         ribbonTabName="General Input"
+         processNodeName="Set General Input"
+         displayName="General Input" helpName="GeneralInput" >
+    <Description name="CorrosionCaseDescription" >This is the full list of general input parameters.</Description>
+    <Note>Enter Note here...</Note>
+    <Parameter name="Temperature" className="edu.ohiou.icmt.modeling.param.Parameter" isParametric="true"
+               toolTips="Bulk system temperature"
+               defaultValue="25" displayOrder="2" softLimit="1 250" hardLimit="0 300"
+               unitType="TEMPERATURE" units="temperature_units" />
+    <Parameter name="Total Pressure" className="edu.ohiou.icmt.modeling.param.Parameter" isParametric="true"
+               toolTips="Total pressure of the system.\n
+                        If the exact pressure is unknown, a suggested pressure is 10% greater than the sum of the known partial pressures."
+               defaultValue="10" displayOrder="4" softLimit="1 200" hardLimit="0 300"
+               unitType="PRESSURE" units="pressure_units" />
+    <Parameter name="Steel Type" defaultSelection="0" className="edu.ohiou.icmt.modeling.param.OptionParameter"
+               displayOrder="5" options="STEEL_TYPE_OPTIONS" enabled="false" />
+			   <Parameter name="Corrosion Type" defaultSelection="0" className="edu.ohiou.icmt.modeling.param.OptionParameter"
+               toolTips="Select:\n
+                        BLC - bottom of line corrosion\n
+                        TLC - top of the line corrosion (Company must be a sponsor of TLC research to use TLC option.)"
+               displayOrder="6" options="CORROSION_TYPE_OPTIONS" />
+    <Parameter name="Flow Type" defaultSelection="0" className="edu.ohiou.icmt.modeling.param.OptionParameter"
+               toolTips="Select flow type:\n
+                        Single phase: water flow\n
+                        Two phase: oil/water flow or gas/water flow\n
+                        Three phase: gas/oil/water flow"
+               displayOrder="8" options="FLOW_TYPE_OPTIONS" />
+    <Parameter name="Simulation Engine" defaultSelection="0" className="edu.ohiou.icmt.modeling.param.OptionParameter"
+               toolTips="Select simulation engine:\n
+                        Multicorp: point model/parametric run/ line run\n
+                        Freecorp: transient simulation/ steady state simulation"
+               displayOrder="9" options="SIMU_ENGINE_OPTIONS" />			   
+    <Parameter name="Simulation Type" defaultSelection="0" className="edu.ohiou.icmt.modeling.param.OptionParameter"
+               toolTips="Select simulation type:\n
+                        Point Model - simulates corrosion rate at a single location;\n
+                        Parametric Run - allows variation of selected inputs to run independent Point Model calculations;\n
+                        Line Run - uses input line information to run a series of Point Model calculations."
+               displayOrder="10" options="FREECORP_OPTIONS" />
+    <Parameter name="Language" defaultSelection="0" className="edu.ohiou.icmt.modeling.param.OptionParameter"
+               toolTips="Language for which format will be used to store model in input file.\n
+                        Currently stores only numbers in selected format.\n
+                        Parameter names are still in english."
+               displayOrder="1"
+               options="LANGUAGE_OPTIONS" />
+
+
+    <!--Free Composition Model-->
+    <Model name="FreeComposition"
+           assembly="fc-composition, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+           className="edu.ohiou.icmt.freecorp.composition.FreeCompositionModel"
+           ribbonTabName="Composition"
+           processNodeName="Set Composition Data" helpName="Composition" >
+      <Note>Enter Note here...</Note>
+      <!--A group panel can be generated without title bar. -->
+
+      <!-- 
+    Bruce Brown - 20130504  modified significant digits and tool tips 
+    Bruce Brown - addition of lower limit for pH2S is due to significant increase in calculation time when pH2S is lower than 0.0001 bar.
+    -->
+      <!-- Column 1 of Composition -->
+      <ParamGroup name="CompoCol1" isTitleVisible="false" displayOrder="1">
+        <!-- Gas composition group -->
+        <ParamGroup name="Gas content" displayOrder="1">
+          <Parameter name="H2S Gas Content" className="edu.ohiou.icmt.modeling.param.Parameter" isParametric="true"
+                     toolTips="Partial pressure or mol percent of hydrogen sulfide.
+                              Recommended limits: pH2S greater than 0.0001 bar, but less than 1 bar."
+                     displayOrder="2" defaultValue="0" softLimit="0 1" hardLimit="0 5" significantDigits="3"
+                     unitType="GAS_CONCENTRATION" units="gas_concentration_units" dependency="Total Pressure" />
+          <Parameter name="CO2 Gas Content" className="edu.ohiou.icmt.modeling.param.Parameter" isParametric="true"
+                     toolTips="Partial pressure or mol percent of carbon dioxide."
+                     displayOrder="1" defaultValue="1" softLimit="0.1 25" hardLimit="10e-61 215" significantDigits="3"
+                     unitType="GAS_CONCENTRATION" units="gas_concentration_units" dependency="Total Pressure" />
+          <Parameter name="N2 Gas Content" className="edu.ohiou.icmt.modeling.param.Parameter"
+                     toolTips="Partial pressure or mol percent of nitrogen.\n Used to balance total pressure as it has no effect on corrosion rate."
+                     displayOrder="3" defaultValue="0" softLimit="0 25" hardLimit="0 215" significantDigits="3"
+                     unitType="GAS_CONCENTRATION" units="gas_concentration_units" isOutput="true" />
+          <Parameter name="HAc Gas Content" className="edu.ohiou.icmt.modeling.param.Parameter"
+                     toolTips="Partial pressure or mol percent of acetic acid."
+                     displayOrder="4" defaultValue="0" softLimit="0 25" hardLimit="0 215" significantDigits="3"
+                     unitType="GAS_CONCENTRATION" units="gas_concentration_units" dependency="Total Pressure" />
+          <Parameter name="H2O Gas Content" className="edu.ohiou.icmt.modeling.param.Parameter"
+                     toolTips="The partial pressure of water vapor is directly related to the temperature and cannot be adjusted by the user.\n
+                              pH2O(bar)=EXP(73.649 - 7258.2/Tk - 7.3037*LN(Tk) + 0.0000041653*(Tk)^2)/100000\n
+                              Perry's 7th Ed., p2-54, Table 2-6"
+                     displayOrder="5" defaultValue="0" softLimit="0 25" hardLimit="0 215" significantDigits="3"
+                     unitType="GAS_CONCENTRATION" units="gas_concentration_units" isOutput="true" />
+        </ParamGroup>
+
+        <!--Hydrocarbon composition group-->
+        <ParamGroup name="Hydrocarbon content" displayOrder="2" >
+          <Parameter name="CH4 Gas Content" className="edu.ohiou.icmt.modeling.param.Parameter"
+                     toolTips="Partial pressure of methane."
+                     displayOrder="1" defaultValue="0" softLimit="0 25" hardLimit="0 215" significantDigits="3"
+                     unitType="GAS_CONCENTRATION" units="gas_concentration_units" dependency="Total Pressure" />
+          <Parameter name="C2H6 Gas Content" className="edu.ohiou.icmt.modeling.param.Parameter"
+                     toolTips="Partial pressure of ethane."
+                     displayOrder="2" defaultValue="0" softLimit="0 25" hardLimit="0 215" significantDigits="3"
+                     unitType="GAS_CONCENTRATION" units="gas_concentration_units" dependency="Total Pressure" />
+          <Parameter name="C3H8 Gas Content" className="edu.ohiou.icmt.modeling.param.Parameter"
+                     toolTips="Partial pressure of propane."
+                     displayOrder="3" defaultValue="0" softLimit="0 25" hardLimit="0 215" significantDigits="3"
+                     unitType="GAS_CONCENTRATION" units="gas_concentration_units" dependency="Total Pressure" />
+          <Parameter name="C4H10 Gas Content" className="edu.ohiou.icmt.modeling.param.Parameter"
+                     toolTips="Partial pressure of butane."
+                     displayOrder="4" defaultValue="0" softLimit="0 25" hardLimit="0 215" significantDigits="3"
+                     unitType="GAS_CONCENTRATION" units="gas_concentration_units" dependency="Total Pressure" />
+          <Parameter name="C5H12 Gas Content" className="edu.ohiou.icmt.modeling.param.Parameter"
+                     toolTips="Partial pressure of pentane."
+                     displayOrder="5" defaultValue="0" softLimit="0 25" hardLimit="0 215" significantDigits="3"
+                     unitType="GAS_CONCENTRATION" units="gas_concentration_units" dependency="Total Pressure" />
+          <Parameter name="C6H14 Gas Content" className="edu.ohiou.icmt.modeling.param.Parameter"
+                     toolTips="Partial pressure of hexane."
+                     displayOrder="6" defaultValue="0" softLimit="0 25" hardLimit="0 215" significantDigits="3"
+                     unitType="GAS_CONCENTRATION" units="gas_concentration_units" dependency="Total Pressure" />
+          <Parameter name="C7H16 Gas Content" className="edu.ohiou.icmt.modeling.param.Parameter"
+                     toolTips="Partial pressure of heptane."
+                     displayOrder="7" defaultValue="0" softLimit="0 25" hardLimit="0 215" significantDigits="3"
+                     unitType="GAS_CONCENTRATION" units="gas_concentration_units" dependency="Total Pressure" />
+          <Parameter name="C8H18 Gas Content" className="edu.ohiou.icmt.modeling.param.Parameter"
+                     toolTips="Partial pressure of octane."
+                     displayOrder="8" defaultValue="0" softLimit="0 25" hardLimit="0 215" significantDigits="3"
+                     unitType="GAS_CONCENTRATION" units="gas_concentration_units" dependency="Total Pressure" />
+        </ParamGroup>
+
+      </ParamGroup>
+
+      <!-- Column 2 of Composition -->
+      <ParamGroup name="CompoCol2" isTitleVisible="false" displayOrder="2">
+
+        <!-- Aqueous Species -->
+        <ParamGroup name="Aqueous Species" className="edu.ohiou.icmt.modeling.globalresources.WaterSpecs"
+                    displayOrder="1" flowDirection="1" >
+
+          <!-- Column 1 of Aqueous Species -->
+          <ParamGroup name="Aqueous_Col_1" isTitleVisible="false" displayOrder="1" >
+
+            <!--ph model group-->
+            <ParamGroup name="pH Model" disPlayName="pH" displayOrder="1">
+              <Parameter name="pH Calculation" className="edu.ohiou.icmt.modeling.param.OptionParameter" defaultSelection="1"
+                         displayOrder="1" options="PH_TYPE_OPTIONS" isVisible="true"/>
+              <Parameter name="pH" className="edu.ohiou.icmt.modeling.param.Parameter" isParametric="true"
+                         toolTips="Bulk pH value after saturation of soluble gases into water composition."
+                         displayOrder="2" defaultValue="4" softLimit="3 7" hardLimit="2 9"
+                         significantDigits="3"
+                         unitType="NULLTYPE" units="ph_units" />
+            </ParamGroup>
+
+            <ParamGroup name="CO2 Species" displayOrder="2" >
+              <Parameter name="CO2" className="edu.ohiou.icmt.modeling.param.Parameter"
+                         toolTips="Aqueous concentration of carbon dioxide."
+                         displayOrder="3" defaultValue="0" softLimit="0 1000000" hardLimit="0 1000000"
+                         unitType="CONCENTRATION" units="water_spec_concentration" saveResult="true"/>
+              <Parameter name="H2CO3" className="edu.ohiou.icmt.modeling.param.Parameter"
+                         toolTips="Concentration of carbonic acid in solution."
+                         displayOrder="4" defaultValue="0" softLimit="0 1000000" hardLimit="0 1000000"
+                         unitType="CONCENTRATION" units="water_spec_concentration"
+                         isOutput="true" saveResult="true"/>
+              <Parameter name="HCO3-" className="edu.ohiou.icmt.modeling.param.Parameter" isParametric="true"
+                         toolTips="Concentration of bicarbonate in solution."
+                         displayOrder="5" defaultValue="9.058" softLimit="0 12240" hardLimit="0.000001 225000"
+                         significantDigits="6"
+                         unitType="CONCENTRATION" units="water_spec_concentration" saveResult="true"/>
+              <Parameter name="CO32-" className="edu.ohiou.icmt.modeling.param.Parameter"
+                         toolTips="Concentration of carbonate ion in solution."
+                         displayOrder="6" defaultValue="0" softLimit="0 1000000" hardLimit="0 1000000"
+                         unitType="CONCENTRATION" units="water_spec_concentration"
+                         isOutput="true" saveResult="true"/>
+            </ParamGroup>
+
+            <ParamGroup name="HAc Species" displayOrder="3" >
+              <Parameter name="HAc" className="edu.ohiou.icmt.modeling.param.Parameter"
+                         toolTips="Concentration of free acetic acid in solution."
+                         displayOrder="8" defaultValue="0" softLimit="0 1000" hardLimit="0 10000000000"
+                         unitType="CONCENTRATION" units="water_spec_concentration"
+                         isOutPut="true" />
+              <Parameter name="Ac-" className="edu.ohiou.icmt.modeling.param.Parameter"
+                         toolTips="Concentration of acetate in solution."
+                         displayOrder="9" defaultValue="0" softLimit="0 1000000" hardLimit="0 1000000"
+                         unitType="CONCENTRATION" units="water_spec_concentration"
+                         isOutPut="true" />
+              <Parameter name="Total HAc+Ac" className="edu.ohiou.icmt.modeling.param.Parameter" isParametric="true"
+                         toolTips="Bulk concentration of total acetic acid in solution (HAc + Ac-)."
+                         displayOrder="22" defaultValue="0" softLimit="0 1000000" hardLimit="0 1000000"
+                         significantDigits="6"
+                         unitType="CONCENTRATION" units="water_spec_concentration" />
+            </ParamGroup>
+
+            <ParamGroup name="H2S Species" displayOrder="4" >
+              <Parameter name="H2S" className="edu.ohiou.icmt.modeling.param.Parameter"
+                         toolTips="Bulk concentration of aqueous hydrogen sulfide [H2S(aq)]."
+                         displayOrder="10" defaultValue="0" softLimit="0 1000000" hardLimit="0 1000000"
+                         unitType="CONCENTRATION" units="water_spec_concentration" />
+              <Parameter name="HS-" className="edu.ohiou.icmt.modeling.param.Parameter"
+                         toolTips="Bulk concentration of bisulfide."
+                         displayOrder="11" defaultValue="0" softLimit="0 1000000" hardLimit="0 1000000"
+                         unitType="CONCENTRATION" units="water_spec_concentration"
+                         isOutput="true" />
+              <Parameter name="S2-" className="edu.ohiou.icmt.modeling.param.Parameter"
+                         toolTips="Bulk concentration of sulfide ion."
+                         displayOrder="12" defaultValue="0" softLimit="0 1000000" hardLimit="0 1000000"
+                         unitType="CONCENTRATION" units="water_spec_concentration"
+                         isOutput="true" />
+              <Parameter name="H2S+HS+S" className="edu.ohiou.icmt.modeling.param.Parameter"
+                         toolTips="Concentration of total sulfides in solution [H2S(aq) + HS + S2-]."
+                         displayOrder="21" defaultValue="0" softLimit="0 1000000" hardLimit="0 1000000"
+                         unitType="CONCENTRATION" units="water_spec_concentration"
+                         isOutput="true" />
+            </ParamGroup>
+
+          </ParamGroup>
+
+          <!-- Column 2 of Aqueous Species -->
+          <ParamGroup name="Aqueous_Col_2" isTitleVisible="false" displayOrder="2" >
+            <ParamGroup name="Other Brine Species" displayOrder="2" >
+              <Parameter name="H+" className="edu.ohiou.icmt.modeling.param.Parameter"
+                         toolTips="Bulk concentration of hydrogen ions."
+                         displayOrder="1" defaultValue="0" softLimit="0 1000000" hardLimit="0 1000000"
+                         significantDigits="3"
+                         unitType="CONCENTRATION" units="water_spec_concentration"
+                         isOutput="true" saveResult="true"/>
+              <Parameter name="Fe2+" className="edu.ohiou.icmt.modeling.param.Parameter" isParametric="true"
+                         toolTips="Bulk concentration of ferrous ions."
+                         displayOrder="2" defaultValue="1" softLimit="0 100" hardLimit="0 1000"
+                         significantDigits="3"
+                         unitType="CONCENTRATION" units="water_spec_concentration" saveResult="true"/>
+              <Parameter name="Na+" className="edu.ohiou.icmt.modeling.param.Parameter"
+                         toolTips="Bulk concentration of sodium ions."
+                         displayOrder="13" defaultValue="0.286" softLimit="0 77000" hardLimit="0 200000"
+                         significantDigits="6"
+                         unitType="CONCENTRATION" units="water_spec_concentration" saveResult="true"/>
+              <Parameter name="Ca2+" className="edu.ohiou.icmt.modeling.param.Parameter"
+                         toolTips="Bulk concentration of calcium ions."
+                         displayOrder="15" defaultValue="0" softLimit="0 1000" hardLimit="0 2000"
+                         significantDigits="4"
+                         unitType="CONCENTRATION" units="water_spec_concentration" />
+              <Parameter name="Ba2+" className="edu.ohiou.icmt.modeling.param.Parameter"
+                         toolTips="Bulk concentration of barium ions."
+                         displayOrder="16" defaultValue="0" softLimit="0 10" hardLimit="0 1000"
+                         significantDigits="3"
+                         unitType="CONCENTRATION" units="water_spec_concentration" />
+              <Parameter name="K+" className="edu.ohiou.icmt.modeling.param.Parameter"
+                         toolTips="Bulk concentration of potassium ions."
+                         displayOrder="17" defaultValue="0" softLimit="0 500" hardLimit="0 1000"
+                         significantDigits="3"
+                         unitType="CONCENTRATION" units="water_spec_concentration" />
+              <Parameter name="Mg2+" className="edu.ohiou.icmt.modeling.param.Parameter"
+                         toolTips="Bulk concentration of magnesium ions."
+                         displayOrder="19" defaultValue="0" softLimit="0 2500" hardLimit="0 3500"
+                         significantDigits="4"
+                         unitType="CONCENTRATION" units="water_spec_concentration" />
+              <Parameter name="Sr2+" className="edu.ohiou.icmt.modeling.param.Parameter"
+                         toolTips="Bulk concentration of strontium ions."
+                         displayOrder="20" defaultValue="0" softLimit="0 30" hardLimit="0 1000000"
+                         significantDigits="6"
+                         unitType="CONCENTRATION" units="water_spec_concentration" />
+              <Parameter name="Cl-" className="edu.ohiou.icmt.modeling.param.Parameter"
+                         toolTips="Bulk concentration of chloride ions."
+                         displayOrder="21"  defaultValue="1.17E-5" softLimit="0 120000" hardLimit="0 200000"
+                         significantDigits="6"
+                         unitType="CONCENTRATION" units="water_spec_concentration" saveResult="true"/>
+              <Parameter name="SO42-" className="edu.ohiou.icmt.modeling.param.Parameter"
+                         toolTips="Bulk concentration of sulfate ions."
+                         displayOrder="22" defaultValue="0" softLimit="0 3000" hardLimit="0 96330"
+                         significantDigits="5"
+                         unitType="CONCENTRATION" units="water_spec_concentration" />
+              <Parameter name="OH-" className="edu.ohiou.icmt.modeling.param.Parameter"
+                         toolTips="Bulk concentration of hydroxide ions."
+                         displayOrder="23" defaultValue="0" softLimit="0 1000000" hardLimit="0 1000000"
+                         significantDigits="3"
+                         unitType="CONCENTRATION" units="water_spec_concentration"
+                         isOutput="true" saveResult="true"/>
+              <Parameter name="Ionic Strength" className="edu.ohiou.icmt.modeling.param.Parameter"
+                         toolTips="Ionic strength of the bulk solution"
+                         displayOrder="24" defaultValue="0" softLimit="0 1000000" hardLimit="0 1000000"
+                         unitType="NULLTYPE" units="ph_units" significantDigits="3"
+                         isOutput="true" />
+              <Parameter name="Alkalinity" className="edu.ohiou.icmt.modeling.param.Parameter"
+                         toolTips="Equivalent bicarbonate balance"
+                         displayOrder="26" defaultValue="0" softLimit="-100 100"
+                         significantDigits="2"
+                         unitType="ALKALINITY_TYPE" units="alkalinity_units"
+                         isOutput="true" />
+            </ParamGroup>
+
+          </ParamGroup>
+
+          <!-- Column 3 of Aqueous Species -->
+          <ParamGroup name="Aqueous_Col_3" isTitleVisible="false" displayOrder="3" >
+
+            <ParamGroup name="Saturation Level" displayOrder="4" >
+              <Parameter name="FeCO3 Saturation Level" className="edu.ohiou.icmt.modeling.param.Parameter"
+                         toolTips="Saturation level of iron carbonate:
+                              S(FeCO3)=[Fe2+][CO32-]/Ksp(FeCO3)"
+                         displayOrder="1" defaultValue="0" softLimit="0 1000000" hardLimit="0 1000000"
+                         significantDigits="3"
+                         unitType="NULLTYPE" units="no_units"
+                         isOutput="true" />
+              <Parameter name="CaCO3 Saturation Level" className="edu.ohiou.icmt.modeling.param.Parameter"
+                         toolTips="Saturation level of calcium carbonate:
+                              S(CaCO3)=[Ca2+][CO32-]/Ksp(CaCO3)"
+                         displayOrder="2" defaultValue="0" softLimit="0 1000000" hardLimit="0 1000000"
+                         significantDigits="3"
+                         unitType="NULLTYPE" units="no_units"
+                         isOutput="true" />
+              <Parameter name="CaSO4 Saturation Level" className="edu.ohiou.icmt.modeling.param.Parameter"
+                         toolTips="Saturation level of calcium sulfate:
+                              S(CaSO4)=[Ca2+][SO42-]/Ksp(CaSO4)"
+                         displayOrder="3" defaultValue="0" softLimit="0 1000000" hardLimit="0 1000000"
+                         significantDigits="3"
+                         unitType="NULLTYPE" units="no_units"
+                         isOutput="true" />
+              <Parameter name="FeS Saturation Level" className="edu.ohiou.icmt.modeling.param.Parameter"
+                         toolTips="Saturation level of iron sulfide:
+                              S(FeS)=[Fe2+][S2-]/Ksp(FeS)mackinawite"
+                         displayOrder="4" defaultValue="0" softLimit="0 1000000" hardLimit="0 1000000"
+                         significantDigits="3"
+                         unitType="NULLTYPE" units="no_units"
+                         isOutput="true" />
+            </ParamGroup>
+
+          </ParamGroup>
+
+        </ParamGroup>
+
+      </ParamGroup>
+
+    </Model>
+
+    <!--Free Flow Model-->
+    <Model name="FreeFlowModel"
+           assembly="fc-flow, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+           className="edu.ohiou.icmt.freecorp.flow.FreeFlowModel"
+           displayName="Water Flow" >
+      <Note>Enter Note here...</Note>
+      <!-- start flow columns -->
+      <!-- flow column 1 -->
+      <ParamGroup name="flowCol1" isTitleVisible="false" displayOrder="1" flowDirection="0" >
+
+        <ParamGroup name="Flow Velocity" displayOrder="2" >
+          <Parameter name="Superficial Water Velocity" className="edu.ohiou.icmt.modeling.param.Parameter" isParametric="true"
+                     toolTips="Vsl - the hypothetical fluid velocity calculated as if water was the only phase filling the cross sectional area."
+                     displayOrder="2" defaultValue="0.2" softLimit="0.01 10" hardLimit="0 300" unitType="VELOCITY" units="velocity_units" />
+          <Parameter name="Superficial Gas Velocity" className="edu.ohiou.icmt.modeling.param.Parameter" isParametric="true"
+                     toolTips="Vsg - a hypothetical gas velocity calculated as if gas was the only phase filling the cross sectional area."
+                     displayOrder="4" defaultValue="2" softLimit="0.1 100" hardLimit="0 300" unitType="VELOCITY" units="velocity_units" />
+          <Parameter name="Superficial Oil Velocity" className="edu.ohiou.icmt.modeling.param.Parameter" isParametric="true"
+                     toolTips="Vso - a hypothetical fluid velocity calculated as if oil was the only phase filling the cross sectional area."
+                     displayOrder="3" defaultValue="0.8" softLimit="0.01 10" hardLimit="0 300" unitType="VELOCITY" units="velocity_units" />
+          <Parameter name="Input Type" className="edu.ohiou.icmt.modeling.param.OptionParameter"
+                     toolTips="Choose the preferred input:\n
+                              - flow velocity or\n
+                              - volumetric flow rate."
+                     displayOrder="0" defaultSelection="0" options="INPUT_TYPE_OPTIONS" />
+          <Parameter name="Velocity Input Type" className="edu.ohiou.icmt.modeling.param.OptionParameter"
+                     toolTips="Choose the preferred input:\n
+                              - oil-water input (input velocity or flow for oil and water)\n
+                              - mixture input (input velocity or flow of the mixture and water cut)"
+                     displayOrder="1" defaultSelection="0" options="VELOCITY_INPUT_TYPE_OPTIONS" />
+          <Parameter name="Water Flow Rate" className="edu.ohiou.icmt.modeling.param.Parameter" isParametric="true"
+                     toolTips="Volumetric flow rate of water." softLimitCheckParams="Superficial Water Velocity"
+                     displayOrder="7" defaultValue="1000" softLimit="0 90000000" unitType="LIQUID_FLOW_RATE" units="liquid_flow_rate_units" />
+          <Parameter name="Gas Flow Rate" className="edu.ohiou.icmt.modeling.param.Parameter" isParametric="true"
+                     toolTips="Volumetric flow rate of gas." softLimitCheckParams="Superficial Gas Velocity"
+                     displayOrder="9" defaultValue="20000" softLimit="0.01 90000000" unitType="GAS_FLOW_RATE" units="gas_flow_rate_units" />
+          <Parameter name="Oil Flow Rate" className="edu.ohiou.icmt.modeling.param.Parameter" isParametric="true"
+                     toolTips="Volumetric flow rate of oil." softLimitCheckParams="Superficial Oil Velocity"
+                     displayOrder="8" defaultValue="2000" softLimit="0.01 90000000" unitType="LIQUID_FLOW_RATE" units="liquid_flow_rate_units" />
+          <Parameter name="Mixture Flow Rate" className="edu.ohiou.icmt.modeling.param.Parameter"
+                     toolTips="Total volumetric liquid flow rate=water flow rate + oil flow rate."
+					 softLimitCheckParams="Mixture Velocity"
+                     displayOrder="10" defaultValue="3000" softLimit="0.01 90000000" unitType="LIQUID_FLOW_RATE" units="liquid_flow_rate_units" />
+          <Parameter name="Mixture Velocity" className="edu.ohiou.icmt.modeling.param.Parameter"
+                     toolTips="Vsm -  hypothetical fluid velocity calculated as if oil/water mix was the only phase filling the cross sectional area."
+                     displayOrder="5" defaultValue="1" softLimit="0.01 20" unitType="VELOCITY" units="velocity_units" />
+          <Parameter name="Water Cut" className="edu.ohiou.icmt.modeling.param.Parameter"
+                     toolTips="Amount of water in total liquid volume."
+                     displayOrder="6" defaultValue="0.05" softLimit="0 1" hardLimit="0 1" unitType="PERCENT" units="percentage_units" />
+        </ParamGroup>
+      </ParamGroup>
+      <!-- flow column 2 -->
+      <ParamGroup name="flowCol2" isTitleVisible="false" displayOrder="2" flowDirection="0" >
+        <ParamGroup name="Water Properties" displayName="Water Properties at Operating Conditions"
+                    displayOrder="6" >
+          <!--<Parameter name="Liquid Type" className="edu.ohiou.icmt.modeling.param.OptionParameter"
+                       displayOrder="1" defaultSelection="0" options="LIQUID_TYPE_OPTIONS" />-->
+          <Parameter name="Water Density" className="edu.ohiou.icmt.modeling.param.Parameter"
+              toolTips="Density of Water phase."
+              displayOrder="2" defaultValue="1000" softLimit="900 1050" hardLimit="0 1500" unitType="DENSITY" units="density_units" />
+          <Parameter name="Water Viscosity" className="edu.ohiou.icmt.modeling.param.Parameter"
+              toolTips="Dynamic viscosity of water phase."
+              displayOrder="3" defaultValue="0.001" softLimit="0.0005 0.01" hardLimit="0.0005 0.03" unitType="VISCOSITY" units="viscosity_units" />
+        </ParamGroup>
+
+        <ParamGroup name="Oil Properties" displayOrder="8" >
+          <Parameter name="Oil Type" className="edu.ohiou.icmt.modeling.param.OptionParameter"
+                     displayOrder="1" defaultSelection="0" options="OIL_TYPE_OPTIONS" enabled="false" />
+          <Parameter name="Oil Density" className="edu.ohiou.icmt.modeling.param.Parameter"
+                     toolTips="Density of Oil phase."
+                     displayOrder="2" defaultValue="825" softLimit="700 1050" hardLimit="0 1200" unitType="DENSITY" units="oil_density_units" />
+          <Parameter name="Oil Viscosity" className="edu.ohiou.icmt.modeling.param.Parameter"
+                     toolTips="Dynamic viscosity of oil."
+                     displayOrder="3" defaultValue="0.002" softLimit="0.001 0.5" hardLimit="0.001 1.5" unitType="VISCOSITY" units="viscosity_units" />
+          <Parameter name="Wetting Factor" className="edu.ohiou.icmt.modeling.param.Parameter"
+                     toolTips="Relationship of the wettability of a solid surface to the specified liquid."
+                     displayOrder="4" defaultValue="1" softLimit="0 100" hardLimit="0 100" unitType="NULLTYPE" units="ph_units" />
+          <Parameter name="Oil Heat Capacity" className="edu.ohiou.icmt.modeling.param.Parameter"
+                     toolTips="Heat capacity input value for oil."
+                     displayOrder="5" defaultValue="2140" softLimit="0 3000" hardLimit="0 1000000" unitType="HEAT_CAPACITY" units="heatcapacity_units" />
+          <Parameter name="Interfacial Tension" className="edu.ohiou.icmt.modeling.param.Parameter"
+                     toolTips="Adhesive forces (tension) between the liquid phase of one substance and either a solid, liquid or gas phase of another substance."
+                     displayOrder="6" defaultValue="0.04" softLimit="0.001 0.15" hardLimit="0 2" unitType="TENSION" units="tension_units" />
+          <Parameter name="Contact Angle" className="edu.ohiou.icmt.modeling.param.Parameter"
+                     toolTips="The angle formed at the liquid/solid boundary when a liquid is in contract with a solid surface."
+                     displayOrder="7" defaultValue="90" softLimit="0 180" hardLimit="0 180" unitType="ANGLE" units="inclination_units" />
+        </ParamGroup>
+        <ParamGroup name="Gas Properties" displayName="Gas Properties at Operating Conditions" displayOrder="10" >
+          <Parameter name="Gas Properties Input" className="edu.ohiou.icmt.modeling.param.OptionParameter"
+                     toolTips="Choose gas properties to be calculated by:\n
+                     - Peng-Robinson equation (default) or\n
+                     - input values defined by user."
+                     displayOrder="0" defaultSelection="1" options="GAS_PROPERTIES_INPUT_OPTIONS" />
+          <Parameter name="Gas Density" className="edu.ohiou.icmt.modeling.param.Parameter"
+                     toolTips="Density of the gas phase."
+                     displayOrder="1" defaultValue="7.54" softLimit="0.1 100" hardLimit="0 1600" unitType="DENSITY" units="density_units" />
+          <Parameter name="Gas Viscosity" className="edu.ohiou.icmt.modeling.param.Parameter"
+                     toolTips="Dynamic viscosity of gas phase."
+                     displayOrder="2" defaultValue="0.0000176" softLimit="0.000001 0.0001" hardLimit="0 1" unitType="VISCOSITY" units="viscosity_units" />
+          <Parameter name="Gas Liquid Surface Tension" className="edu.ohiou.icmt.modeling.param.Parameter"
+                     toolTips="The interfacial tension at the gas and liquid interface."
+                     displayOrder="3" defaultValue="0.0721" softLimit="0 100" hardLimit="0 100" unitType="TENSION" units="tension_units" />
+        </ParamGroup>
+      </ParamGroup>
+      <!-- flow column 3 -->
+      <ParamGroup  name="flowCol3" isTitleVisible="false" displayOrder="3" flowDirection="0" >
+        <ParamGroup name="Flow Output"   displayOrder="12" >
+          <Parameter name="Flow Pattern" className="edu.ohiou.icmt.modeling.param.StringParameter"
+                     toolTips="Flow regime determined from input values."
+                     displayOrder="0" defaultValue=""
+                     isOutput="true" />
+          <Parameter name="Wetting Phase" className="edu.ohiou.icmt.modeling.param.StringParameter"
+                     toolTips="The phase that will wet the surface of the internal pipe wall."
+                     displayOrder="2" defaultValue="Water"
+                     isOutput="true" />
+          <Parameter name="Critical Mixture Velocity" className="edu.ohiou.icmt.modeling.param.Parameter"
+                     toolTips="The critical liquid velocity above which one of the phases is dispersed in another phase."
+                     displayOrder="3" defaultValue="0" softLimit="0 100" hardLimit="0 100" unitType="VELOCITY" units="velocity_units"
+                     isOutput="true" />
+          <Parameter name="Critical Mixture Flow Rate" className="edu.ohiou.icmt.modeling.param.Parameter"
+                     toolTips="The flow rate under critical mixture velocity."
+                     displayOrder="4" defaultValue="0.3" softLimit="0 10000" unitType="LIQUID_FLOW_RATE" units="liquid_flow_rate_units"
+                     isOutput="true" />
+          <Parameter name="Water Layer Thickness" className="edu.ohiou.icmt.modeling.param.Parameter"
+                     toolTips="The depth of the water layer on the bottom of the pipe."
+                     displayOrder="5" defaultValue="0" softLimit="0 100" hardLimit="0 100"
+                     significantDigits="3" unitType="LENGTH" units="length_units"
+                     isOutput="true" />
+          <Parameter name="Mixture Layer Thickness" className="edu.ohiou.icmt.modeling.param.Parameter"
+                     toolTips="The depth of the oil/water mixture on the bottom of the pipe."
+                     displayOrder="6" defaultValue="0" softLimit="0 100" hardLimit="0 100"
+                     significantDigits="3" unitType="LENGTH" units="length_units"
+                     isOutput="true" />
+          <Parameter name="In-Situ Water Layer Velocity" className="edu.ohiou.icmt.modeling.param.Parameter"
+                     toolTips="The velocity of the water layer on the bottom of the pipe."
+                     displayOrder="7" defaultValue="0" softLimit="0 100" hardLimit="-100 100"
+                     significantDigits="3" unitType="VELOCITY" units="velocity_units"
+                     isOutput="true" />
+          <Parameter name="In-Situ Oil Layer Velocity" className="edu.ohiou.icmt.modeling.param.Parameter"
+                     toolTips="The velocity of the oil layer on the bottom of the pipe."
+                     displayOrder="8" defaultValue="0" softLimit="0 100" hardLimit="-100 100"
+                     significantDigits="3" unitType="VELOCITY" units="velocity_units"
+                     isOutput="true" />
+          <Parameter name="In-Situ Gas Velocity" className="edu.ohiou.icmt.modeling.param.Parameter"
+                     toolTips="The velocity of the gas phase through the pipe."
+                     displayOrder="9" defaultValue="0" softLimit="0 100" hardLimit="0 100"
+                     significantDigits="3" unitType="VELOCITY" units="velocity_units"
+                     isOutput="true" />
+          <Parameter name="In-Situ Mixture Layer Velocity" className="edu.ohiou.icmt.modeling.param.Parameter"
+                     toolTips="The velocity of the oil/water mixture on the bottom of the pipe."
+                     displayOrder="10" defaultValue="0" softLimit="0 100" hardLimit="-100 100"
+                     significantDigits="3" unitType="VELOCITY" units="velocity_units"
+                     isOutput="true" />
+          <Parameter name="Liquid Holdup" className="edu.ohiou.icmt.modeling.param.Parameter"
+                     toolTips="The in-situ area fraction of the liquid phase over the pipe cross section."
+                     displayOrder="11" defaultValue="0" softLimit="-1000 1000" hardLimit="-1000 1000"
+                     significantDigits="3" unitType="NULLTYPE" units="ph_units"
+                     isOutput="true" />
+          <Parameter name="Wall-shear Stress in Water layer" className="edu.ohiou.icmt.modeling.param.Parameter"
+                     toolTips="The shear stress from the flow of water on the internal wall of the pipeline."
+                     displayOrder="12" defaultValue="0" softLimit="0.1 100" hardLimit="0 1000000"
+                     significantDigits="3" unitType="STRESS" units="stress_units"
+                     isOutput="true" />
+          <Parameter name="Slug Frequency" className="edu.ohiou.icmt.modeling.param.Parameter"
+                     toolTips="The occurring frequency of the slug phenomenon in a slug flow."
+                     displayOrder="13" defaultValue="0" softLimit="0 100" hardLimit="0 1000000"
+                     significantDigits="3" unitType="FREQUENCY" units="freq_units"
+                     isOutput="true" />
+          <Parameter name="Pressure Drop" className="edu.ohiou.icmt.modeling.param.Parameter"
+                     toolTips="Pressure drop of the pipe flow"
+                     displayOrder="14" defaultValue="0" softLimit="-100000000 100000000" hardLimit="-100000000 100000000"
+                     significantDigits="6" unitType="NULLTYPE" units="stress_units"
+                     isOutput="true" />
+          <Parameter name="Entrainment Fraction" className="edu.ohiou.icmt.modeling.param.Parameter"
+                     toolTips="The ratio of the entrained liquid droplet mass flow rate to the entire liquid mass flow rate."
+                     displayOrder="15" defaultValue="0" softLimit="0 1" hardLimit="0 1"
+                     significantDigits="2" unitType="NULLTYPE" units="ph_units"
+                     isOutput="true" />
+          <Parameter name="Mixture Density" className="edu.ohiou.icmt.modeling.param.Parameter"
+                     toolTips="Density of the water/hydrocarbon mixture."
+                     displayOrder="16" defaultValue="0" softLimit="789 1060" hardLimit="0 1060"
+                     significantDigits="4" unitType="DENSITY" units="density_units"
+                     isOutput="false" />
+          <Parameter name="In-Situ Liquid Layer Velocity" className="edu.ohiou.icmt.modeling.param.Parameter"
+                     toolTips="The velocity of the water/hydrocarbon mixture on the bottom of the pipe."
+                     displayOrder="17" defaultValue="0" softLimit="0 100" hardLimit="-100 100"
+                     significantDigits="3" unitType="VELOCITY" units="velocity_units"
+                     isOutput="true" />
+          <Parameter name="Wall Shear Stress in Liquid Layer" className="edu.ohiou.icmt.modeling.param.Parameter"
+                     toolTips="The shear stress from the liquid flow on the internal wall of the pipe."
+                     displayOrder="18" defaultValue="0" softLimit="0.1 100" hardLimit="0 1000000"
+                     significantDigits="3" unitType="STRESS" units="stress_units"
+                     isOutput="true" />
+          <Parameter name="Rate of Droplet Deposition" className="edu.ohiou.icmt.modeling.param.Parameter"
+                     toolTips="The mass rate of deposition of liquid droplet entrained in the gas phase per unit area."
+                     displayOrder="19" defaultValue="0" softLimit="0 50000" hardLimit="0 1000000"
+                     significantDigits="3" unitType="CONDENSATION_RATE" units="condensation_rate_units"
+                     isOutput="true" />
+          <Parameter name="Wall Shear Stress" className="edu.ohiou.icmt.modeling.param.Parameter"
+                     toolTips="The shear stress resulting from flow on the internal wall of the pipe."
+                     displayOrder="20" defaultValue="0" softLimit="0 5000" hardLimit="0 1000000"
+                     significantDigits="3" unitType="STRESS" units="stress_units"
+                     isOutput="true" />
+          <Parameter name="Hydraulic Liquid Diameter" className="edu.ohiou.icmt.modeling.param.Parameter"
+                     toolTips="Hydraulic Diameter for liqud phase"
+                     displayOrder="30" defaultValue="0.025" softLimit="0.0001 1" hardLimit="0 1.5"
+                     significantDigits="3" unitType="LENGTH" units="length_units"
+                     isOutput="true" />
+        </ParamGroup>
+        <!--
+      <GasWaterOutput className="edu.ohiou.icmt.multicorp.flow.FlowProperties" >
+        <Parameter name="Flow Pattern" className="edu.ohiou.icmt.modeling.param.StringParameter"
+                   toolTips="Flow regime determined from input values."
+                   defaultValue=""
+                   isOutput="true" />
+      </GasWaterOutput>
+      -->
+      </ParamGroup>
+      <!-- end flow columns -->
+    </Model>
+
+    <Model name="FreecorpModel"
+               assembly="fc-corrosion, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+               className="edu.ohiou.icmt.freecorp.point.FreeCorpModel" >
+      <Note>Enter Note here...</Note>
+
+      <ParamGroup name="Imported parameters"   displayOrder="1" >
+        <Parameter name="Temperature" className="edu.ohiou.icmt.modeling.param.Parameter" isParametric="true"
+                 toolTips="Bulk system temperature"
+                 defaultValue="25" displayOrder="2" softLimit="1 250" hardLimit="0 300"
+                 unitType="TEMPERATURE" units="temperature_units" />
+        <Parameter name="Total Pressure" className="edu.ohiou.icmt.modeling.param.Parameter" isParametric="true"
+                 toolTips="Total pressure of the system.\n
+                        If the exact pressure is unknown, a suggested pressure is 10% greater than the sum of the known partial pressures."
+                 defaultValue="10" displayOrder="4" softLimit="1 200" hardLimit="0 300"
+                 unitType="PRESSURE" units="pressure_units" />
+        <Parameter name="H2S Gas Content" className="edu.ohiou.icmt.modeling.param.Parameter" isParametric="true"
+                     toolTips="Partial pressure or mol percent of hydrogen sulfide.
+                              Recommended limits: pH2S greater than 0.0001 bar, but less than 1 bar."
+                     displayOrder="2" defaultValue="0" softLimit="0 1" hardLimit="0 5" significantDigits="3"
+                     unitType="GAS_CONCENTRATION" units="gas_concentration_units" dependency="Total Pressure" />
+        <Parameter name="CO2 Gas Content" className="edu.ohiou.icmt.modeling.param.Parameter" isParametric="true"
+                     toolTips="Partial pressure or mol percent of carbon dioxide."
+                     displayOrder="1" defaultValue="1" softLimit="0.1 25" hardLimit="10e-61 215" significantDigits="3"
+                     unitType="GAS_CONCENTRATION" units="gas_concentration_units" dependency="Total Pressure" />
+        <Parameter name="pH" className="edu.ohiou.icmt.modeling.param.Parameter" isParametric="true"
+                         toolTips="Bulk pH value after saturation of soluble gases into water composition."
+                         displayOrder="2" defaultValue="4" softLimit="3 7" hardLimit="2 9"
+                         significantDigits="3"
+                         unitType="NULLTYPE" units="ph_units" />
+        <Parameter name="HAc" className="edu.ohiou.icmt.modeling.param.Parameter"
+                         toolTips="Concentration of free acetic acid in solution."
+                         displayOrder="8" defaultValue="0" softLimit="0 1000" hardLimit="0 10000000000"
+                         unitType="CONCENTRATION" units="water_spec_concentration"
+                         isOutPut="true" />
+        <Parameter name="Fe2+" className="edu.ohiou.icmt.modeling.param.Parameter" isParametric="true"
+                         toolTips="Bulk concentration of ferrous ions."
+                         displayOrder="2" defaultValue="1" softLimit="0 100" hardLimit="0 1000"
+                         significantDigits="3"
+                         unitType="CONCENTRATION" units="water_spec_concentration" saveResult="true"/>
+        <Parameter name="Section Diameter" displayName="Internal Diameter" className="edu.ohiou.icmt.modeling.param.Parameter"
+                         toolTips="Internal diameter of pipe section."
+                         softLimitCheckParams="Water Flow Rate, Oil Flow Rate, Gas Flow Rate, Mixture Flow Rate"
+                         displayOrder="1" defaultValue="0.1" softLimit="0.0254 0.91" hardLimit="0.0254 1" unitType="LENGTH" units="length_units" />
+        <Parameter name="Superficial Water Velocity" className="edu.ohiou.icmt.modeling.param.Parameter" isParametric="true"
+                     toolTips="Vsl - the hypothetical fluid velocity calculated as if water was the only phase filling the cross sectional area."
+                     displayOrder="2" defaultValue="0.2" softLimit="0.01 10" hardLimit="0 300" unitType="VELOCITY" units="velocity_units" />
+      </ParamGroup>
+      <Parameter name="Simulation Duration" className="edu.ohiou.icmt.modeling.param.Parameter"
+                 toolTips="Total simulation time."
+                 defaultValue="168" displayOrder="40" softLimit="0 8760" hardLimit="0 max" unitType="TIME"
+                 units="time_units" unitIndex="2" />
+      <Parameter name="Current Simulation Time" className="edu.ohiou.icmt.modeling.param.Parameter"
+                 toolTips="Current value for time during simulation."
+                 defaultValue="0" displayOrder="50" softLimit="0 max" hardLimit="0 max"
+                 significantDigits="2" unitType="TIME"
+                 units="time_units" unitIndex="2" isOutput="true" />
+      <Parameter name="Corrosion Rate" className="edu.ohiou.icmt.modeling.param.Parameter"
+                 toolTips="Current value for corrosion rate during simulation."
+                 defaultValue="0" displayOrder="60" softLimit="0 60"
+                 significantDigits="2" unitType="CORROSION_RATE"
+                 units="corrosion_rate_units" isOutput="true" />
+
+      <Parameter name="Output Options" className="edu.ohiou.icmt.modeling.param.ListParameter"
+                 defaultValue="" displayOrder="80" />      
+
+    </Model>
+
+    <Model name="PipeLine"
+           assembly="mc-base, Version=5.3.0.0, Culture=neutral, PublicKeyToken=null"
+           className="edu.ohiou.icmt.multicorp.linetopography.PipeLine"
+           helpName="Pipeline" >
+
+      <Note>Enter Note here...</Note>
+      <!--DSormaz, 0917/13, For pipe section tag is 'ParamGroup', to avoid creating a single pipe section for the new case we introduce the attribute skipInstrance.-->
+
+      <ParamTable name="Pipeline Control Panel" isTitleVisible="false"  className="edu.ohiou.icmt.modeling.basemodel.ParamTable" displayOrder="1">
+
+        <ParamRow name="PipeSection" flowDirection="1" className="edu.ohiou.icmt.multicorp.linetopography.PipeSection">
+
+          <ParamGroup name="PipeSection_col1" isTitleVisible="false" displayOrder="1" flowDirection="0">
+            <ParamGroup name="Pipe Section Design" displayOrder="1" flowDirection="0" showInTable="true" displayName ="Line Section Design">
+              <ParamGroup name="Length and Inclination" isTitleVisible="false"  displayOrder="1" flowDirection="0">
+                <Parameter name="Section Input Type" defaultSelection="0" className="edu.ohiou.icmt.modeling.param.OptionParameter"
+                       toolTips="Select input type:\n
+									Length and inclination of section\n
+									Coordinates of starting and ending points of section"
+                       displayOrder="1" options="SECTION_INPUT_TYPES" />
+                <Parameter name="Section Length" className="edu.ohiou.icmt.modeling.param.Parameter"
+                       toolTips="Length parameter for pipe section."
+                       displayOrder="3" defaultValue="100" displayName="Length"
+                       hardLimit="0 2000" softLimit="0 2000" unitType="LENGTH" units="length_units" />
+                <Parameter name="Number of steps" className="edu.ohiou.icmt.modeling.param.Parameter"
+                     toolTips="The number of equally spaced locations along the pipe section for point model calculation."
+                     displayOrder="7" defaultValue="10" softLimit="2 1000" hardLimit="2 1000" unitType="NULLTYPE" units="no_units"/>
+                <Parameter name="Step Length" className="edu.ohiou.icmt.modeling.param.Parameter"
+                             toolTips="Length of each step"
+                             displayOrder="8" defaultValue="10" displayName="Calculation Interval"
+                             hardLimit="0 400" softLimit="0 400" unitType="LENGTH" units="length_units" isOutput="true" />
+              </ParamGroup>
+
+              <ParamGroup name="Start Point" displayOrder="2" flowDirection="0" showInTable="false">
+                <Parameter name="Start X" className="edu.ohiou.icmt.modeling.param.Parameter"
+                       toolTips="Horizontal parameter for beginning of pipe section."
+                       displayOrder="4" defaultValue="0" displayName="X" isOutput="true"
+                       softLimit="0 2000" unitType="LENGTH" units="length_units" />
+                <Parameter name="Start Y" className="edu.ohiou.icmt.modeling.param.Parameter"
+                       toolTips="Vertical parameter for beginning of pipe section."
+                       displayOrder="5" defaultValue="0" displayName="Y" isOutput="true"
+                       softLimit="0 2000" unitType="LENGTH" units="length_units" />
+              </ParamGroup>
+
+              <ParamGroup name="End Point" displayOrder="3" flowDirection="0" >
+                <Parameter name="End X" className="edu.ohiou.icmt.modeling.param.Parameter"
+                       toolTips="Horizontal parameter for end of pipe section."
+                       displayOrder="6" defaultValue="100" displayName="X" isOutput="true"
+                       softLimit="0 2000" unitType="LENGTH" units="length_units" />
+                <Parameter name="End Y" className="edu.ohiou.icmt.modeling.param.Parameter"
+                       toolTips="Vertical parameter for end of pipe section."
+                       displayOrder="7" defaultValue="100" displayName="Y" isOutput="true"
+                       softLimit="0 2000" unitType="LENGTH" units="length_units" />
+              </ParamGroup>
+            </ParamGroup>
+
+          </ParamGroup>
+
+          <ParamGroup name="PipeSection_col2" isTitleVisible="false" displayOrder="2" flowDirection="0" showInTable="false">
+            <ParamGroup name="Pipe Properties" displayOrder="2" flowDirection="0" displayName ="Line Properties">
+              <Parameter name="Section Diameter" displayName="Internal Diameter" className="edu.ohiou.icmt.modeling.param.Parameter"
+                         toolTips="Internal diameter of pipe section."
+                         softLimitCheckParams="Water Flow Rate, Oil Flow Rate, Gas Flow Rate, Mixture Flow Rate"
+                         displayOrder="1" defaultValue="0.1" softLimit="0.0254 0.91" hardLimit="0.0254 1" unitType="LENGTH" units="length_units" />
+              <Parameter name="Section Inclination" className="edu.ohiou.icmt.modeling.param.Parameter"
+                       toolTips="Inclination parameter for pipe section."
+                       displayOrder="2" defaultValue="0" displayName="Inclination"
+                       hardLimit="-90 90" softLimit="-90 90" unitType="ANGLE" units="inclination_units" />
+              <Parameter name="Pipe Roughness" className="edu.ohiou.icmt.modeling.param.Parameter"
+                         toolTips="A measure of the surface texture of the internal surface of pipe section."
+                         displayOrder="4" defaultValue="0.00002"
+                         softLimit="0 1" hardLimit="0 1" unitType="LENGTH" units="roughness_units" />
+              <Parameter name="Pipe Thickness" className="edu.ohiou.icmt.modeling.param.Parameter"
+                         toolTips="Pipe wall thickness from interal radius to external radius."
+                         displayOrder="5" defaultValue="0.02"
+                         softLimit="0.005 0.1" hardLimit="0.005 0.1" unitType="LENGTH" units="length_units" />
+              <Parameter name="Pipe Conductivity" className="edu.ohiou.icmt.modeling.param.Parameter"
+                         toolTips="Pipeline material thermal conductivity."
+                         displayOrder="6" defaultValue="60"
+                         softLimit="0.001 250" hardLimit="0.001 250" unitType="CONDUCTIVITY" units="conductivity_units" />
+            </ParamGroup>
+          </ParamGroup>
+
+          <ParamGroup name="PipeSection_col3" isTitleVisible="false" displayOrder="3" flowDirection="0" showInTable="false">
+
+            <ParamGroup name="Outside Environment" displayOrder="3" flowDirection="0" >
+              <Parameter name="Environment Type" defaultSelection="1" className="edu.ohiou.icmt.modeling.param.OptionParameter"
+                         toolTips="Choose external environment of pipe location: Sea, River, or Air."
+                         displayOrder="1" options="ENVIRONMENT_TYPE_OPTIONS" />
+              <Parameter name="Outside Temperature"  className="edu.ohiou.icmt.modeling.param.Parameter"
+                         toolTips="Environmental temperature on the external pipe wall."
+                         defaultValue="5" displayOrder="2" softLimit="-40 80" hardLimit="-40 80"
+                         unitType="TEMPERATURE" units="temperature_units" />
+              <Parameter name="Current/Wind Velocity" className="edu.ohiou.icmt.modeling.param.Parameter"
+                         toolTips="Velocity of current or wind on external pipe wall."
+                         displayOrder="3" defaultValue="5" softLimit="0.001 100" hardLimit="0.001 100"
+                         unitType="VELOCITY" units="velocity_units" />
+            </ParamGroup>
+
+            <ParamGroup name="Soil Properties" displayOrder="4" flowDirection="0" >
+              <Parameter name="Burial ratio" className="edu.ohiou.icmt.modeling.param.Parameter"
+                         toolTips="The percentage of the outer pipe diameter covered by soil."
+                         displayOrder="1" defaultValue="0.3" softLimit="0 1" hardLimit="0 1" unitType="PERCENT" units="percentage_units" />
+              <Parameter name="Soil Thickness" className="edu.ohiou.icmt.modeling.param.Parameter"
+                         toolTips="The thickness of the soil ABOVE the top of the pipeline.\nOnly used if Burial Ratio is equal to 100%."
+                         displayOrder="2" defaultValue="0" softLimit="0 50" hardLimit="0 50" unitType="LENGTH" units="length_units" />
+              <Parameter name="Soil Conductivity" className="edu.ohiou.icmt.modeling.param.Parameter"
+                         toolTips="Soil thermal conductivity."
+                         displayOrder="3" defaultValue="1" softLimit="0.00001 250" hardLimit="0.00001 250" unitType="CONDUCTIVITY" units="conductivity_units" />
+            </ParamGroup>
+
+          </ParamGroup>
+
+          <ParamGroup name="PipeSection_col4" isTitleVisible="false" displayOrder="4" flowDirection="0" showInTable="false">
+
+            <ParamTable name="Insulation" className="edu.ohiou.icmt.modeling.basemodel.ParamTable"
+                      displayOrder="2">
+
+              <ParamRow name="Insulation Layer" className="edu.ohiou.icmt.modeling.basemodel.ParamRow" rowTemplateName="Insulation Layer"
+                     flowDirection="1" showInTable="true">
+                <Parameter name="Insulation Type" className="edu.ohiou.icmt.modeling.param.OptionParameter"
+                           toolTips="Type of insulation on external pipe wall."
+                           displayOrder="1" options="INSULATION_TYPE_OPTIONS" defaultSelection="0" />
+                <Parameter name="Insulation Thickness" className="edu.ohiou.icmt.modeling.param.Parameter"
+                           toolTips="Thickness of insulation on external pipe wall."
+                           displayOrder="2" defaultValue="0.003" softLimit="0 100" hardLimit="0 100" unitType="LENGTH" units="length_units" />
+                <Parameter name="Insulation Conductivity" className="edu.ohiou.icmt.modeling.param.Parameter"
+                           toolTips="Thermal conductivity of insulation on external pipe wall."
+                           displayOrder="3" defaultValue="0.1" softLimit="0 100" hardLimit="0 100" unitType="CONDUCTIVITY" units="conductivity_units" />
+              </ParamRow>
+
+            </ParamTable>
+
+          </ParamGroup>
+
+          <ModelRef name="Insulation" >
+          </ModelRef>
+
+        </ParamRow>
+
+      </ParamTable>
+
+    </Model>
+
+    <Model name="Corrosion Result"
+             assembly="mc-base, Version=5.3.0.0, Culture=neutral, PublicKeyToken=null"
+             className="edu.ohiou.icmt.multicorp.postprocessing.CorrosionResult"
+         ribbonTabName="Post Processing"
+         processNodeName="Post Processing"
+         displayName="Post Processing" helpName="Post_Processing">
+      <Note>Enter Note here...</Note>
+    </Model>
+
+   
+  </Model>  
+
+</MulticorpDefaultInput>
