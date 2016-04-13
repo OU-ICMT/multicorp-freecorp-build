@@ -6,16 +6,22 @@ fc-corrosion
 </name>
 </assembly>
 <members>
-<member name="M:edu.ohiou.icmt.freecorp.point.ElectroChemicalModel.getioref_Frumkin(System.Double,System.Double,System.Double,System.Double)">
- This function is to obtain the reference current density for iron dissolution using bisection method
-</member>
-<member name="T:edu.ohiou.icmt.freecorp.point.GlobalData.equipmentType">
+<member name="T:edu.ohiou.icmt.freecorp.corrosion.GlobalData.equipmentType">
  <summary>
  Equipment types:Rotating cylinder, pipeline, magnetic stirring bar
  </summary>
  <remarks></remarks>
 </member>
-<member name="M:edu.ohiou.icmt.freecorp.point.MassTransferConstants.getKs(System.Double)">
+<member name="M:edu.ohiou.icmt.freecorp.corrosion.transient.ElectroChemicalModel.getioref_Frumkin(System.Double,System.Double,System.Double,System.Double)">
+ This function is to obtain the reference current density for iron dissolution using bisection method
+</member>
+<member name="M:edu.ohiou.icmt.freecorp.corrosion.transient.FreeCorpModel.getSelectedSpeciesList">
+ <summary>
+ creates a list of all the species selected from outputoption list
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:edu.ohiou.icmt.freecorp.corrosion.transient.MassTransferConstants.getKs(System.Double)">
  <summary>
  This Function returns() mass transfer coefficient Of corrosion product scale
  </summary>

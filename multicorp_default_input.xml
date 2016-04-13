@@ -154,7 +154,7 @@ base units
                      unitType="GAS_CONCENTRATION" units="gas_concentration_units" dependency="Total Pressure" />
           <Parameter name="CO2 Gas Content" className="edu.ohiou.icmt.modeling.param.Parameter" isParametric="true"
                      toolTips="Partial pressure or mol percent of carbon dioxide."
-                     displayOrder="1" defaultValue="1" softLimit="0.1 25" hardLimit="10e-61 215" significantDigits="3"
+                     displayOrder="1" defaultValue="1" softLimit="0.1 25" hardLimit="0 215" significantDigits="3"
                      unitType="GAS_CONCENTRATION" units="gas_concentration_units" dependency="Total Pressure" />
           <Parameter name="N2 Gas Content" className="edu.ohiou.icmt.modeling.param.Parameter"
                      toolTips="Partial pressure or mol percent of nitrogen.\n Used to balance total pressure as it has no effect on corrosion rate."
@@ -355,14 +355,26 @@ base units
                          significantDigits="3"
                          unitType="CONCENTRATION" units="water_spec_concentration"
                          isOutput="true" saveResult="true"/>
+              <Parameter name="NaCl" className="edu.ohiou.icmt.modeling.param.Parameter"
+                         toolTips="Bulk concentration of NaCl."
+                         displayOrder="24" defaultValue="0" softLimit="0 1000000" hardLimit="0 1000000"
+                         significantDigits="3"
+                         unitType="CONCENTRATION" units="water_spec_concentration"
+                         saveResult="true"/>
+              <Parameter name="O2" className="edu.ohiou.icmt.modeling.param.Parameter"
+                         toolTips="Bulk concentration of Oxygen."
+                         displayOrder="25" defaultValue="0" softLimit="0 1000000" hardLimit="0 1000000"
+                         significantDigits="3"
+                         unitType="CONCENTRATION" units="water_spec_concentration"
+                         saveResult="true"/>              
               <Parameter name="Ionic Strength" className="edu.ohiou.icmt.modeling.param.Parameter"
                          toolTips="Ionic strength of the bulk solution"
-                         displayOrder="24" defaultValue="0" softLimit="0 1000000" hardLimit="0 1000000"
+                         displayOrder="26" defaultValue="0" softLimit="0 1000000" hardLimit="0 1000000"
                          unitType="NULLTYPE" units="ph_units" significantDigits="3"
                          isOutput="true" />
               <Parameter name="Alkalinity" className="edu.ohiou.icmt.modeling.param.Parameter"
                          toolTips="Equivalent bicarbonate balance"
-                         displayOrder="26" defaultValue="0" softLimit="-100 100"
+                         displayOrder="28" defaultValue="0" softLimit="-100 100"
                          significantDigits="2"
                          unitType="ALKALINITY_TYPE" units="alkalinity_units"
                          isOutput="true" />
@@ -635,7 +647,7 @@ base units
 
     <Model name="FreecorpModel"
                assembly="fc-corrosion, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
-               className="edu.ohiou.icmt.freecorp.point.FreeCorpModel" >
+               className="edu.ohiou.icmt.freecorp.corrosion.transient.FreeCorpModel" >
       <Note>Enter Note here...</Note>
 
       <ParamGroup name="Imported parameters"   displayOrder="1" >
@@ -655,7 +667,7 @@ base units
                      unitType="GAS_CONCENTRATION" units="gas_concentration_units" dependency="Total Pressure" />
         <Parameter name="CO2 Gas Content" className="edu.ohiou.icmt.modeling.param.Parameter" isParametric="true"
                      toolTips="Partial pressure or mol percent of carbon dioxide."
-                     displayOrder="1" defaultValue="1" softLimit="0.1 25" hardLimit="10e-61 215" significantDigits="3"
+                     displayOrder="1" defaultValue="1" softLimit="0.1 25" hardLimit="0 215" significantDigits="3"
                      unitType="GAS_CONCENTRATION" units="gas_concentration_units" dependency="Total Pressure" />
         <Parameter name="pH" className="edu.ohiou.icmt.modeling.param.Parameter" isParametric="true"
                          toolTips="Bulk pH value after saturation of soluble gases into water composition."
@@ -696,8 +708,118 @@ base units
                  units="corrosion_rate_units" isOutput="true" />
 
       <Parameter name="Output Options" className="edu.ohiou.icmt.modeling.param.ListParameter"
-                 defaultValue="" displayOrder="80" />      
+                 defaultValue="" displayOrder="80" />
 
+    </Model>
+
+    <Model name="SteadyStateModel"
+           assembly="fc-corrosion, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+           className="edu.ohiou.icmt.freecorp.corrosion.steadystate.SteadyStateModel" >
+      <Note>Enter Note here...</Note>
+
+    <Parameter name="Simulation Duration" className="edu.ohiou.icmt.modeling.param.Parameter"
+                 toolTips="Total simulation time."
+                 defaultValue="168" displayOrder="40" softLimit="0 8760" hardLimit="0 max" unitType="TIME"
+                 units="time_units" unitIndex="2" />
+      <Parameter name="Current Simulation Time" className="edu.ohiou.icmt.modeling.param.Parameter"
+                 toolTips="Current value for time during simulation."
+                 defaultValue="0" displayOrder="50" softLimit="0 max" hardLimit="0 max"
+                 significantDigits="2" unitType="TIME"
+                 units="time_units" unitIndex="2" isOutput="true" />
+      <Parameter name="Corrosion Rate" className="edu.ohiou.icmt.modeling.param.Parameter"
+                 toolTips="Current value for corrosion rate during simulation."
+                 defaultValue="0" displayOrder="60" softLimit="0 60"
+                 significantDigits="2" unitType="CORROSION_RATE"
+                 units="corrosion_rate_units" isOutput="true" />
+
+      <Parameter name="Output Options" className="edu.ohiou.icmt.modeling.param.ListParameter"
+                 defaultValue="" displayOrder="80" />
+
+      <ParamGroup name="Miscellaneous Data"   displayOrder="1" isTitleVisible="false" isVisible="false">
+        <ParamGroup name="H+_reduction"   displayOrder="1" isTitleVisible="false" isVisible="false">
+          <Parameter name="ioref" className="edu.ohiou.icmt.modeling.param.Parameter"
+                     defaultValue="0.03" displayOrder="1" isVisible="false"
+                     unitType="NULLTYPE" units="ph_units"
+                     softLimit="-100000 10000000" hardLimit="-100000 10000000"/>
+          <Parameter name="ActivEnergy" className="edu.ohiou.icmt.modeling.param.Parameter"
+                     defaultValue="30000" displayOrder="2" isVisible="false"
+                     unitType="NULLTYPE" units="ph_units"
+                     softLimit="-100000 10000000" hardLimit="-100000 10000000"/>
+        </ParamGroup>
+        <ParamGroup name="H2CO3_reduction"   displayOrder="2" isTitleVisible="false" isVisible="false">
+          <Parameter name="ioref" className="edu.ohiou.icmt.modeling.param.Parameter"
+                     defaultValue="0.018" displayOrder="1" isVisible="false"
+                     unitType="NULLTYPE" units="ph_units"
+                     softLimit="-100000 10000000" hardLimit="-100000 10000000"/>
+          <Parameter name="ActivEnergy" className="edu.ohiou.icmt.modeling.param.Parameter"
+                     defaultValue="50000" displayOrder="2" isVisible="false"
+                     unitType="NULLTYPE" units="ph_units"
+                     softLimit="-100000 10000000" hardLimit="-100000 10000000"/>
+          <Parameter name="concref" className="edu.ohiou.icmt.modeling.param.Parameter"
+                     defaultValue="0.0001" displayOrder="3" isVisible="false"
+                     unitType="NULLTYPE" units="ph_units"
+                     softLimit="-100000 10000000" hardLimit="-100000 10000000"/>
+        </ParamGroup>
+        <ParamGroup name="H2O_reduction"   displayOrder="3" isTitleVisible="false" isVisible="false">
+          <Parameter name="ioref" className="edu.ohiou.icmt.modeling.param.Parameter"
+                     defaultValue="0.000020" displayOrder="1" isVisible="false"
+                     unitType="NULLTYPE" units="ph_units"
+                     softLimit="-100000 10000000" hardLimit="-100000 10000000"/>
+          <Parameter name="ActivEnergy" className="edu.ohiou.icmt.modeling.param.Parameter"
+                     defaultValue="30000" displayOrder="2" isVisible="false"
+                     unitType="NULLTYPE" units="ph_units"
+                     softLimit="-100000 10000000" hardLimit="-100000 10000000"/>
+        </ParamGroup>
+        <ParamGroup name="H2S_reduction"   displayOrder="4" isTitleVisible="false" isVisible="false">
+          <Parameter name="ioref" className="edu.ohiou.icmt.modeling.param.Parameter"
+                     defaultValue="0.00015" displayOrder="1" isVisible="false"
+                     unitType="NULLTYPE" units="ph_units"
+                     softLimit="-100000 10000000" hardLimit="-100000 10000000"/>
+          <Parameter name="ActivEnergy" className="edu.ohiou.icmt.modeling.param.Parameter"
+                     defaultValue="60000" displayOrder="2" isVisible="false"
+                     unitType="NULLTYPE" units="ph_units"
+                     softLimit="-100000 10000000" hardLimit="-100000 10000000"/>
+          <Parameter name="concref" className="edu.ohiou.icmt.modeling.param.Parameter"
+                     defaultValue="0.0001" displayOrder="3" isVisible="false"
+                     unitType="NULLTYPE" units="ph_units"
+                     softLimit="-100000 10000000" hardLimit="-100000 10000000"/>
+        </ParamGroup>
+        <ParamGroup name="HAc_reduction"   displayOrder="5" isTitleVisible="false" isVisible="false">
+          <Parameter name="ioref" className="edu.ohiou.icmt.modeling.param.Parameter"
+                     defaultValue="0.1" displayOrder="1" isVisible="false"
+                     unitType="NULLTYPE" units="ph_units"
+                     softLimit="-100000 10000000" hardLimit="-100000 10000000"/>
+          <Parameter name="ActivEnergy" className="edu.ohiou.icmt.modeling.param.Parameter"
+                     defaultValue="55000" displayOrder="2" isVisible="false"
+                     unitType="NULLTYPE" units="ph_units"
+                     softLimit="-100000 10000000" hardLimit="-100000 10000000"/>
+          <Parameter name="concref" className="edu.ohiou.icmt.modeling.param.Parameter"
+                     defaultValue="0.001" displayOrder="3" isVisible="false"
+                     unitType="NULLTYPE" units="ph_units"
+                     softLimit="-100000 10000000" hardLimit="-100000 10000000"/>
+        </ParamGroup>
+        <ParamGroup name="Iron_dissolution"   displayOrder="6" isTitleVisible="false" isVisible="false">
+          <Parameter name="ioref" className="edu.ohiou.icmt.modeling.param.Parameter"
+                     defaultValue="1" displayOrder="1" isVisible="false"
+                     unitType="NULLTYPE" units="ph_units"
+                     softLimit="-100000 10000000" hardLimit="-100000 10000000"/>
+          <Parameter name="ActivEnergy" className="edu.ohiou.icmt.modeling.param.Parameter"
+                     defaultValue="37500" displayOrder="2" isVisible="false"
+                     unitType="NULLTYPE" units="ph_units"
+                     softLimit="-100000 10000000" hardLimit="-100000 10000000"/>
+        </ParamGroup>
+        <ParamGroup name="O2_reduction"   displayOrder="7" isTitleVisible="false" isVisible="false">
+          <Parameter name="ioref" className="edu.ohiou.icmt.modeling.param.Parameter"
+                     defaultValue="0.06" displayOrder="1" isVisible="false"
+                     unitType="NULLTYPE" units="ph_units"
+                     softLimit="-100000 10000000" hardLimit="-100000 10000000"/>
+          <Parameter name="ActivEnergy" className="edu.ohiou.icmt.modeling.param.Parameter"
+                     defaultValue="10000" displayOrder="2" isVisible="false"
+                     unitType="NULLTYPE" units="ph_units"
+                     softLimit="-100000 10000000" hardLimit="-100000 10000000"/>
+        </ParamGroup>
+      </ParamGroup>
+      
     </Model>
 
     <Model name="PipeLine"
