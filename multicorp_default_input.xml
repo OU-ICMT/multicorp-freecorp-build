@@ -154,7 +154,7 @@ base units
                      unitType="GAS_CONCENTRATION" units="gas_concentration_units" dependency="Total Pressure" />
           <Parameter name="CO2 Gas Content" className="edu.ohiou.icmt.modeling.param.Parameter" isParametric="true"
                      toolTips="Partial pressure or mol percent of carbon dioxide."
-                     displayOrder="1" defaultValue="1" softLimit="0.1 25" hardLimit="0 215" significantDigits="3"
+                     displayOrder="1" defaultValue="1" softLimit="0 25" hardLimit="0 215" significantDigits="3"
                      unitType="GAS_CONCENTRATION" units="gas_concentration_units" dependency="Total Pressure" />
           <Parameter name="N2 Gas Content" className="edu.ohiou.icmt.modeling.param.Parameter"
                      toolTips="Partial pressure or mol percent of nitrogen.\n Used to balance total pressure as it has no effect on corrosion rate."
@@ -258,12 +258,12 @@ base units
                          toolTips="Concentration of free acetic acid in solution."
                          displayOrder="8" defaultValue="0" softLimit="0 1000" hardLimit="0 10000000000"
                          unitType="CONCENTRATION" units="water_spec_concentration"
-                         isOutPut="true" />
+                         isOutput="true" />
               <Parameter name="Ac-" className="edu.ohiou.icmt.modeling.param.Parameter"
                          toolTips="Concentration of acetate in solution."
                          displayOrder="9" defaultValue="0" softLimit="0 1000000" hardLimit="0 1000000"
                          unitType="CONCENTRATION" units="water_spec_concentration"
-                         isOutPut="true" />
+                         isOutput="true" />
               <Parameter name="Total HAc+Ac" className="edu.ohiou.icmt.modeling.param.Parameter" isParametric="true"
                          toolTips="Bulk concentration of total acetic acid in solution (HAc + Ac-)."
                          displayOrder="22" defaultValue="0" softLimit="0 1000000" hardLimit="0 1000000"
@@ -309,6 +309,18 @@ base units
                          displayOrder="2" defaultValue="1" softLimit="0 100" hardLimit="0 1000"
                          significantDigits="3"
                          unitType="CONCENTRATION" units="water_spec_concentration" saveResult="true"/>
+              <Parameter name="NaCl" className="edu.ohiou.icmt.modeling.param.Parameter"
+                         toolTips="Bulk concentration of NaCl."
+                         displayOrder="2" defaultValue="0" softLimit="0 1000000" hardLimit="0 1000000"
+                         significantDigits="3"
+                         unitType="CONCENTRATION" units="water_spec_concentration"
+                         saveResult="true"/>
+              <Parameter name="O2" className="edu.ohiou.icmt.modeling.param.Parameter"
+                         toolTips="Bulk concentration of Oxygen."
+                         displayOrder="2" defaultValue="0" softLimit="0 1000000" hardLimit="0 1000000"
+                         significantDigits="3"
+                         unitType="CONCENTRATION" units="water_spec_concentration"
+                         saveResult="true"/>
               <Parameter name="Na+" className="edu.ohiou.icmt.modeling.param.Parameter"
                          toolTips="Bulk concentration of sodium ions."
                          displayOrder="13" defaultValue="0.286" softLimit="0 77000" hardLimit="0 200000"
@@ -354,19 +366,7 @@ base units
                          displayOrder="23" defaultValue="0" softLimit="0 1000000" hardLimit="0 1000000"
                          significantDigits="3"
                          unitType="CONCENTRATION" units="water_spec_concentration"
-                         isOutput="true" saveResult="true"/>
-              <Parameter name="NaCl" className="edu.ohiou.icmt.modeling.param.Parameter"
-                         toolTips="Bulk concentration of NaCl."
-                         displayOrder="24" defaultValue="0" softLimit="0 1000000" hardLimit="0 1000000"
-                         significantDigits="3"
-                         unitType="CONCENTRATION" units="water_spec_concentration"
-                         saveResult="true"/>
-              <Parameter name="O2" className="edu.ohiou.icmt.modeling.param.Parameter"
-                         toolTips="Bulk concentration of Oxygen."
-                         displayOrder="25" defaultValue="0" softLimit="0 1000000" hardLimit="0 1000000"
-                         significantDigits="3"
-                         unitType="CONCENTRATION" units="water_spec_concentration"
-                         saveResult="true"/>              
+                         isOutput="true" saveResult="true"/>          
               <Parameter name="Ionic Strength" className="edu.ohiou.icmt.modeling.param.Parameter"
                          toolTips="Ionic strength of the bulk solution"
                          displayOrder="26" defaultValue="0" softLimit="0 1000000" hardLimit="0 1000000"
@@ -654,43 +654,57 @@ base units
         <Parameter name="Temperature" className="edu.ohiou.icmt.modeling.param.Parameter" isParametric="true"
                  toolTips="Bulk system temperature"
                  defaultValue="25" displayOrder="2" softLimit="1 250" hardLimit="0 300"
-                 unitType="TEMPERATURE" units="temperature_units" />
+                 unitType="TEMPERATURE" units="temperature_units" isOutput="true" />
         <Parameter name="Total Pressure" className="edu.ohiou.icmt.modeling.param.Parameter" isParametric="true"
                  toolTips="Total pressure of the system.\n
                         If the exact pressure is unknown, a suggested pressure is 10% greater than the sum of the known partial pressures."
                  defaultValue="10" displayOrder="4" softLimit="1 200" hardLimit="0 300"
-                 unitType="PRESSURE" units="pressure_units" />
+                 unitType="PRESSURE" units="pressure_units" isOutput="true" />
         <Parameter name="H2S Gas Content" className="edu.ohiou.icmt.modeling.param.Parameter" isParametric="true"
                      toolTips="Partial pressure or mol percent of hydrogen sulfide.
                               Recommended limits: pH2S greater than 0.0001 bar, but less than 1 bar."
                      displayOrder="2" defaultValue="0" softLimit="0 1" hardLimit="0 5" significantDigits="3"
+                     isOutput="true" 
                      unitType="GAS_CONCENTRATION" units="gas_concentration_units" dependency="Total Pressure" />
         <Parameter name="CO2 Gas Content" className="edu.ohiou.icmt.modeling.param.Parameter" isParametric="true"
                      toolTips="Partial pressure or mol percent of carbon dioxide."
                      displayOrder="1" defaultValue="1" softLimit="0.1 25" hardLimit="0 215" significantDigits="3"
+                     isOutput="true" 
                      unitType="GAS_CONCENTRATION" units="gas_concentration_units" dependency="Total Pressure" />
         <Parameter name="pH" className="edu.ohiou.icmt.modeling.param.Parameter" isParametric="true"
                          toolTips="Bulk pH value after saturation of soluble gases into water composition."
                          displayOrder="2" defaultValue="4" softLimit="3 7" hardLimit="2 9"
                          significantDigits="3"
+                         isOutput="true" 
                          unitType="NULLTYPE" units="ph_units" />
         <Parameter name="HAc" className="edu.ohiou.icmt.modeling.param.Parameter"
                          toolTips="Concentration of free acetic acid in solution."
                          displayOrder="8" defaultValue="0" softLimit="0 1000" hardLimit="0 10000000000"
                          unitType="CONCENTRATION" units="water_spec_concentration"
-                         isOutPut="true" />
+                         isOutput="true" />
         <Parameter name="Fe2+" className="edu.ohiou.icmt.modeling.param.Parameter" isParametric="true"
                          toolTips="Bulk concentration of ferrous ions."
                          displayOrder="2" defaultValue="1" softLimit="0 100" hardLimit="0 1000"
                          significantDigits="3"
+                         isOutput="true" 
                          unitType="CONCENTRATION" units="water_spec_concentration" saveResult="true"/>
+        <Parameter name="NaCl" className="edu.ohiou.icmt.modeling.param.Parameter" isParametric="true"
+                         toolTips="Bulk concentration of ferrous ions."
+                         displayOrder="2" defaultValue="0" softLimit="0 1000000" hardLimit="0 1000000"
+                         significantDigits="3"
+                         isOutput="true" 
+                         unitType="CONCENTRATION" units="water_spec_concentration" saveResult="true"/>            
         <Parameter name="Section Diameter" displayName="Internal Diameter" className="edu.ohiou.icmt.modeling.param.Parameter"
                          toolTips="Internal diameter of pipe section."
                          softLimitCheckParams="Water Flow Rate, Oil Flow Rate, Gas Flow Rate, Mixture Flow Rate"
-                         displayOrder="1" defaultValue="0.1" softLimit="0.0254 0.91" hardLimit="0.0254 1" unitType="LENGTH" units="length_units" />
+                         displayOrder="1" defaultValue="0.1" softLimit="0.0254 0.91" hardLimit="0.0254 1"
+                         isOutput="true" 
+                         unitType="LENGTH" units="length_units" />
         <Parameter name="Superficial Water Velocity" className="edu.ohiou.icmt.modeling.param.Parameter" isParametric="true"
                      toolTips="Vsl - the hypothetical fluid velocity calculated as if water was the only phase filling the cross sectional area."
-                     displayOrder="2" defaultValue="0.2" softLimit="0.01 10" hardLimit="0 300" unitType="VELOCITY" units="velocity_units" />
+                     displayOrder="2" defaultValue="0.2" softLimit="0.01 10" hardLimit="0 300" 
+                     isOutput="true" 
+                     unitType="VELOCITY" units="velocity_units" />
       </ParamGroup>
       <Parameter name="Simulation Duration" className="edu.ohiou.icmt.modeling.param.Parameter"
                  toolTips="Total simulation time."
@@ -717,20 +731,81 @@ base units
            className="edu.ohiou.icmt.freecorp.corrosion.steadystate.SteadyStateModel" >
       <Note>Enter Note here...</Note>
 
-    <Parameter name="Simulation Duration" className="edu.ohiou.icmt.modeling.param.Parameter"
+    <!--<Parameter name="Simulation Duration" className="edu.ohiou.icmt.modeling.param.Parameter"
                  toolTips="Total simulation time."
                  defaultValue="168" displayOrder="40" softLimit="0 8760" hardLimit="0 max" unitType="TIME"
-                 units="time_units" unitIndex="2" />
-      <Parameter name="Current Simulation Time" className="edu.ohiou.icmt.modeling.param.Parameter"
+                 units="time_units" unitIndex="2" />-->
+      <!--<Parameter name="Current Simulation Time" className="edu.ohiou.icmt.modeling.param.Parameter"
                  toolTips="Current value for time during simulation."
                  defaultValue="0" displayOrder="50" softLimit="0 max" hardLimit="0 max"
                  significantDigits="2" unitType="TIME"
-                 units="time_units" unitIndex="2" isOutput="true" />
+                 units="time_units" unitIndex="2" isOutput="true" />-->
       <Parameter name="Corrosion Rate" className="edu.ohiou.icmt.modeling.param.Parameter"
                  toolTips="Current value for corrosion rate during simulation."
-                 defaultValue="0" displayOrder="60" softLimit="0 60"
-                 significantDigits="2" unitType="CORROSION_RATE"
+                 defaultValue="0" displayOrder="0" softLimit="0 60"
+                 significantDigits="4" unitType="CORROSION_RATE"
                  units="corrosion_rate_units" isOutput="true" />
+      <Parameter name="Corrosion Scenario" className="edu.ohiou.icmt.modeling.param.StringParameter"
+                     toolTips="Corrosion scenario based on super saturation of FeCO3"
+                     displayOrder="1" defaultValue=""
+                     isOutput="true" />      
+
+      <ParamGroup name="Imported parameters"   displayOrder="1" >
+        <Parameter name="Temperature" className="edu.ohiou.icmt.modeling.param.Parameter" isParametric="true"
+                 toolTips="Bulk system temperature"
+                 defaultValue="25" displayOrder="0" softLimit="1 250" hardLimit="0 300"
+                 unitType="TEMPERATURE" units="temperature_units" isOutput="true" />
+        <Parameter name="Total Pressure" className="edu.ohiou.icmt.modeling.param.Parameter" isParametric="true"
+                 toolTips="Total pressure of the system.\n
+                        If the exact pressure is unknown, a suggested pressure is 10% greater than the sum of the known partial pressures."
+                 defaultValue="10" displayOrder="4" softLimit="1 200" hardLimit="0 300"
+                 unitType="PRESSURE" units="pressure_units" isOutput="true" />
+        <Parameter name="H2S Gas Content" className="edu.ohiou.icmt.modeling.param.Parameter" isParametric="true"
+                     toolTips="Partial pressure or mol percent of hydrogen sulfide.
+                              Recommended limits: pH2S greater than 0.0001 bar, but less than 1 bar."
+                     displayOrder="12" defaultValue="0" softLimit="0 1" hardLimit="0 5" significantDigits="3"
+                     isOutput="true" 
+                     unitType="GAS_CONCENTRATION" units="gas_concentration_units" dependency="Total Pressure" />
+        <Parameter name="CO2 Gas Content" className="edu.ohiou.icmt.modeling.param.Parameter" isParametric="true"
+                     toolTips="Partial pressure or mol percent of carbon dioxide."
+                     displayOrder="8" defaultValue="1" softLimit="0.1 25" hardLimit="10e-61 215" significantDigits="3"
+                     isOutput="true" 
+                     unitType="GAS_CONCENTRATION" units="gas_concentration_units" dependency="Total Pressure" />
+        <Parameter name="pH" className="edu.ohiou.icmt.modeling.param.Parameter" isParametric="true"
+                         toolTips="Bulk pH value after saturation of soluble gases into water composition."
+                         displayOrder="16" defaultValue="4" softLimit="3 7" hardLimit="2 9"
+                         significantDigits="3"
+                         isOutput="true" 
+                         unitType="NULLTYPE" units="ph_units" />
+        <Parameter name="HAc" className="edu.ohiou.icmt.modeling.param.Parameter"
+                         toolTips="Concentration of free acetic acid in solution."
+                         displayOrder="20" defaultValue="0" softLimit="0 1000" hardLimit="0 10000000000"
+                         unitType="CONCENTRATION" units="water_spec_concentration"
+                         isOutput="true" />
+        <Parameter name="Fe2+" className="edu.ohiou.icmt.modeling.param.Parameter" isParametric="true"
+                         toolTips="Bulk concentration of ferrous ions."
+                         displayOrder="24" defaultValue="1" softLimit="0 100" hardLimit="0 1000"
+                         significantDigits="3"
+                         isOutput="true" 
+                         unitType="CONCENTRATION" units="water_spec_concentration" saveResult="true"/>
+        <Parameter name="O2" className="edu.ohiou.icmt.modeling.param.Parameter"
+                         toolTips="Bulk concentration of Oxygen."
+                         displayOrder="28" defaultValue="0" softLimit="0 1000000" hardLimit="0 1000000"
+                         significantDigits="3"
+                         isOutput="true" 
+                         unitType="CONCENTRATION" units="water_spec_concentration" saveResult="true"/>            
+        <Parameter name="Section Diameter" displayName="Internal Diameter" className="edu.ohiou.icmt.modeling.param.Parameter"
+                         toolTips="Internal diameter of pipe section."
+                         softLimitCheckParams="Water Flow Rate, Oil Flow Rate, Gas Flow Rate, Mixture Flow Rate"
+                         displayOrder="32" defaultValue="0.1" softLimit="0.0254 0.91" hardLimit="0.0254 1"
+                         isOutput="true" 
+                         unitType="LENGTH" units="length_units" />
+        <Parameter name="Superficial Water Velocity" className="edu.ohiou.icmt.modeling.param.Parameter" isParametric="true"
+                     toolTips="Vsl - the hypothetical fluid velocity calculated as if water was the only phase filling the cross sectional area."
+                     displayOrder="36" defaultValue="0.2" softLimit="0.01 10" hardLimit="0 300" 
+                     isOutput="true" 
+                     unitType="VELOCITY" units="velocity_units" />
+      </ParamGroup>      
 
       <Parameter name="Output Options" className="edu.ohiou.icmt.modeling.param.ListParameter"
                  defaultValue="" displayOrder="80" />
