@@ -668,7 +668,7 @@ base units
                      unitType="GAS_CONCENTRATION" units="gas_concentration_units" dependency="Total Pressure" />
         <Parameter name="CO2 Gas Content" className="edu.ohiou.icmt.modeling.param.Parameter" isParametric="true"
                      toolTips="Partial pressure or mol percent of carbon dioxide."
-                     displayOrder="1" defaultValue="1" softLimit="0.1 25" hardLimit="0 215" significantDigits="3"
+                     displayOrder="1" defaultValue="1" softLimit="0 25" hardLimit="0 215"  significantDigits="3"
                      isOutput="true" 
                      unitType="GAS_CONCENTRATION" units="gas_concentration_units" dependency="Total Pressure" />
         <Parameter name="pH" className="edu.ohiou.icmt.modeling.param.Parameter" isParametric="true"
@@ -768,7 +768,7 @@ base units
                      unitType="GAS_CONCENTRATION" units="gas_concentration_units" dependency="Total Pressure" />
         <Parameter name="CO2 Gas Content" className="edu.ohiou.icmt.modeling.param.Parameter" isParametric="true"
                      toolTips="Partial pressure or mol percent of carbon dioxide."
-                     displayOrder="8" defaultValue="1" softLimit="0.1 25" hardLimit="10e-61 215" significantDigits="3"
+                     displayOrder="8" defaultValue="1" softLimit="0 25" hardLimit="0 215" significantDigits="3"
                      isOutput="true" 
                      unitType="GAS_CONCENTRATION" units="gas_concentration_units" dependency="Total Pressure" />
         <Parameter name="pH" className="edu.ohiou.icmt.modeling.param.Parameter" isParametric="true"
