@@ -15,6 +15,41 @@ fc-corrosion
 <member name="M:edu.ohiou.icmt.freecorp.corrosion.transient.ElectroChemicalModel.getioref_Frumkin(System.Double,System.Double,System.Double,System.Double)">
  This function is to obtain the reference current density for iron dissolution using bisection method
 </member>
+<member name="M:edu.ohiou.icmt.freecorp.corrosion.transient.FreeCorpModel.isCorrosionPossible(System.Boolean)">
+ <summary>
+ Check if corronsion calculation is possible.
+ </summary>
+</member>
+<member name="M:edu.ohiou.icmt.freecorp.corrosion.transient.FreeCorpModel.setupParamsDependency">
+ <summary>
+ Setup dependency for CO2 gas content and H2S gas content.
+ </summary>
+</member>
+<member name="M:edu.ohiou.icmt.freecorp.corrosion.transient.FreeCorpModel.makeOutputOptionList">
+ <summary>
+ Set up parameter type for output.
+ </summary>
+</member>
+<member name="M:edu.ohiou.icmt.freecorp.corrosion.transient.FreeCorpModel.prepareSimulation">
+ <summary>
+ Retrieve all values for calculation.
+ </summary>
+</member>
+<member name="M:edu.ohiou.icmt.freecorp.corrosion.transient.FreeCorpModel.startSimulation">
+ <summary>
+ Start a new thread for simulation.
+ </summary>
+</member>
+<member name="M:edu.ohiou.icmt.freecorp.corrosion.transient.FreeCorpModel.simulate">
+ <summary>
+ Calculate all result.
+ </summary>
+</member>
+<member name="M:edu.ohiou.icmt.freecorp.corrosion.transient.FreeCorpModel.simulationfinished">
+ <summary>
+ Set data for post processing.
+ </summary>
+</member>
 <member name="M:edu.ohiou.icmt.freecorp.corrosion.transient.FreeCorpModel.getSelectedSpeciesList">
  <summary>
  creates a list of all the species selected from outputoption list
